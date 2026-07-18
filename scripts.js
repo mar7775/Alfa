@@ -1,9 +1,9 @@
 // ============================================================
-//   DASHBOARD DATA
+//   DASHBOARD DATA (без иконок)
 // ============================================================
 const dashboardData = {
   mental: {
-    title: '🧠 Ментальная касса',
+    title: 'Ментальная касса',
     subtitle: 'Энергия и фокус основателя',
     goal: 'Предотвратить выгорание и снизить число ошибок из-за усталости.',
     metrics: [
@@ -20,7 +20,7 @@ const dashboardData = {
     status: 'warning'
   },
   hours: {
-    title: '⏰ Золотые часы',
+    title: 'Золотые часы',
     subtitle: 'Выручка по времени суток',
     goal: 'Понять, когда приходят самые крупные и маржинальные клиенты.',
     metrics: [
@@ -37,7 +37,7 @@ const dashboardData = {
     status: 'good'
   },
   waste: {
-    title: '🗑️ Мусорное ведро',
+    title: 'Мусорное ведро',
     subtitle: 'Скрытые затраты на плохих клиентов',
     goal: 'Сравнивать не только стоимость привлечения, но и стоимость последствий.',
     metrics: [
@@ -54,7 +54,7 @@ const dashboardData = {
     status: 'danger'
   },
   word: {
-    title: '📣 Скорость сарафана',
+    title: 'Скорость сарафана',
     subtitle: 'Как быстро клиенты становятся адвокатами',
     goal: 'Измерять скорость, с которой новый клиент делится с друзьями.',
     metrics: [
@@ -71,7 +71,7 @@ const dashboardData = {
     status: 'warning'
   },
   cash: {
-    title: '💰 Будущая касса',
+    title: 'Будущая касса',
     subtitle: 'Остаток денег и ожидаемые поступления',
     goal: 'Показать, сколько дней можно работать на текущем остатке.',
     metrics: [
@@ -88,7 +88,7 @@ const dashboardData = {
     status: 'good'
   },
   ai: {
-    title: '🤖 Эффективность искусственного интеллекта',
+    title: 'Эффективность искусственного интеллекта',
     subtitle: 'Доля задач, переданных нейросетям',
     goal: 'Понять, как быстро команда внедряет искусственный интеллект в рутину.',
     metrics: [
@@ -107,16 +107,13 @@ const dashboardData = {
 };
 
 // ============================================================
-//   ANIMATION: СЧЁТЧИК ЦИФР (ИСПРАВЛЕН — % НЕ ПРОПАДАЕТ)
+//   ANIMATION: СЧЁТЧИК ЦИФР (исправлен — % не пропадает)
 // ============================================================
 function animateCounters() {
   document.querySelectorAll('.hero-stat[data-count]').forEach(stat => {
     const target = parseInt(stat.getAttribute('data-count'));
     const strong = stat.querySelector('strong');
     const suffix = stat.getAttribute('data-suffix') || '';
-    
-    // Получаем начальное значение из strong (там может быть "0%" или "0")
-    const initialText = strong.textContent;
     let current = 0;
     const increment = Math.max(1, Math.ceil(target / 50));
 
@@ -126,7 +123,6 @@ function animateCounters() {
         current = target;
         clearInterval(timer);
       }
-      // Всегда показываем число + суффикс (если есть)
       strong.textContent = current + suffix;
     }, 30);
   });
