@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Панель управления основателя</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container navbar">
+        <div class="brand">Панель управления основателя</div>
+        <nav class="nav-links">
+          <a href="index.html">Главная</a>
+          <a href="ai-assistant.html">ИИ помощник</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="hero-card">
+          <h1>Дашборд предпринимателя</h1>
+          <p>Сайт объединяет рабочие дашборды и бонусный слой по искусственному интеллекту. Каждая панель помогает быстро принимать решения, видеть риски и понимать, где тратятся ресурсы.</p>
+          <div class="hero-metrics">
+            <div class="hero-stat">
+              <strong>6</strong>
+              <span>ключевых блоков</span>
+            </div>
+            <div class="hero-stat">
+              <strong>1</strong>
+              <span>ИИ-помощник</span>
+            </div>
+            <div class="hero-stat">
+              <strong>100%</strong>
+              <span>настройка под бизнес</span>
+            </div>
+          </div>
+          <div class="hero-actions">
+            <a class="btn" href="ai-assistant.html">Открыть ИИ помощника</a>
+            <a class="btn secondary" href="#dashboards">Открыть дашборды</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature-band" aria-label="Преимущества сервиса">
+        <article class="feature-card">
+          <span class="badge">Фокус</span>
+          <h3>Один взгляд на главное</h3>
+          <p>Все важные сигналы собраны в одном контексте, чтобы не терять время на поиск причин.</p>
+        </article>
+        <article class="feature-card">
+          <span class="badge">Действие</span>
+          <h3>Готовый следующий шаг</h3>
+          <p>Каждый блок показывает не только проблему, но и вариант действия прямо сейчас.</p>
+        </article>
+        <article class="feature-card">
+          <span class="badge">Рост</span>
+          <h3>Переход из хаоса в систему</h3>
+          <p>Сервис помогает выстроить привычку видеть деньги, энергию и клиентов в одной логике.</p>
+        </article>
+      </section>
+
+      <section class="how-it-works" aria-label="Как это работает">
+        <div class="section-heading">
+          <span class="badge">Как это работает</span>
+          <h2>От сигнала к действию за один цикл</h2>
+        </div>
+        <div class="steps-grid">
+          <article class="step-card">
+            <span class="step-number">01</span>
+            <h3>Собираем сигнал</h3>
+            <p>Смотрим на состояние энергии, денег, клиентов и ИИ в одном фокусе.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-number">02</span>
+            <h3>Показываем риск</h3>
+            <p>Каждый дашборд выделяет, где есть проблема и насколько она критична.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-number">03</span>
+            <h3>Даём следующий шаг</h3>
+            <p>ИИ помощник превращает наблюдение в понятное действие и готовый план.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="value-section" aria-label="Почему это полезно">
+        <div class="section-heading">
+          <span class="badge">Почему это полезно</span>
+          <h2>Поддерживает предпринимателя в моменте выбора</h2>
+        </div>
+        <div class="value-grid">
+          <article class="value-card">
+            <h3>Меньше эмоционального шума</h3>
+            <p>Сервис помогает смотреть на ситуацию по фактам, а не по панике или усталости.</p>
+          </article>
+          <article class="value-card">
+            <h3>Быстрее принимать решения</h3>
+            <p>Ключевые сигналы уже структурированы, поэтому не нужно собирать их вручную.</p>
+          </article>
+          <article class="value-card">
+            <h3>Лучше управлять ростом</h3>
+            <p>Каждый блок помогает не только видеть проблему, но и понимать, куда направить усилия.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="final-cta" aria-label="Итоговый призыв">
+        <div class="final-cta-content">
+          <span class="badge">В итоге</span>
+          <h2>Предприниматель получает ясность, скорость и контроль</h2>
+          <p>Сервис помогает не просто видеть числа, а быстро понимать, что сейчас важно, где риск и что делать дальше.</p>
+          <a class="btn" href="ai-assistant.html">Перейти к ИИ помощнику</a>
+        </div>
+      </section>
+
+      <section id="dashboards">
+        <h2 class="section-title">Ключевые дашборды</h2>
+        <div class="dashboard-grid">
+          <article class="card">
+            <span class="badge">Блок 1</span>
+            <h3>Ментальная касса</h3>
+            <p>Контроль сна, фокуса и энергии для защиты качества решений основателя.</p>
+            <div class="metrics"><span>Сон</span><span>Фокус</span><span>Энергия</span></div>
+            <div class="actions">
+              <span class="link">Оперативный риск</span>
+              <button class="btn secondary" data-open-dashboard="mental">Погрузиться</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="badge">Блок 2</span>
+            <h3>Золотые часы</h3>
+            <p>Выручка и маржинальность по часам, чтобы переносить рекламный бюджет на самые сильные окна.</p>
+            <div class="metrics"><span>Часы</span><span>Чек</span><span>Конверсия</span></div>
+            <div class="actions">
+              <span class="link">Самое важное окно</span>
+              <button class="btn secondary" data-open-dashboard="hours">Погрузиться</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="badge">Блок 3</span>
+            <h3>Мусорное ведро</h3>
+            <p>Скрытые расходы на плохих клиентов и их влияние на прибыль и репутацию.</p>
+            <div class="metrics"><span>Канал</span><span>Возвраты</span><span>Поддержка</span></div>
+            <div class="actions">
+              <span class="link">Реальная цена клиента</span>
+              <button class="btn secondary" data-open-dashboard="waste">Погрузиться</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="badge">Блок 4</span>
+            <h3>Скорость сарафана</h3>
+            <p>Скорость, с которой клиенты начинают рекомендовать бизнес, прежде чем это станет поздно.</p>
+            <div class="metrics"><span>Рефералы</span><span>24 часа</span><span>7 дней</span></div>
+            <div class="actions">
+              <span class="link">Пути роста</span>
+              <button class="btn secondary" data-open-dashboard="word">Погрузиться</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="badge">Блок 5</span>
+            <h3>Будущая касса</h3>
+            <p>Чёткий взгляд на остаток денег, ожидаемые поступления и запас времени до нуля.</p>
+            <div class="metrics"><span>Дни до нуля</span><span>Дебиторка</span><span>Прогноз</span></div>
+            <div class="actions">
+              <span class="link">Финансовая стабильность</span>
+              <button class="btn secondary" data-open-dashboard="cash">Погрузиться</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="badge">Бонус</span>
+            <h3>Эффективность искусственного интеллекта</h3>
+            <p>Отслеживание доли задач, которые выполняются с нейросетями вместе с командой.</p>
+            <div class="metrics"><span>ИИ задачи</span><span>Тренд</span><span>Цель</span></div>
+            <div class="actions">
+              <span class="link">Переход на следующий уровень</span>
+              <button class="btn secondary" data-open-dashboard="ai">Погрузиться</button>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <section class="panel chat-card">
+        <h3>ИИ помощник по всем дашбордам</h3>
+        <p class="small">Можете задать вопрос по любому блоку: энергия, клиенты, касса, ИИ или реклама.</p>
+        <div class="messages"></div>
+        <form class="chat-form">
+          <div class="form-row">
+            <input type="text" data-chat-input placeholder="Например: проверь мою кассу" />
+            <button class="btn" type="submit">Отправить</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <div class="modal" aria-hidden="true">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 data-modal-title></h3>
+          <button class="close-btn" type="button" aria-label="Закрыть">×</button>
+        </div>
+        <div data-modal-body></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
