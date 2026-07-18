@@ -1,229 +1,1200 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Панель управления основателя</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
-</head>
-<body>
-  <header>
-    <div class="container navbar">
-      <div class="brand">✦ Панель управления основателя</div>
-      <nav class="nav-links">
-        <a href="index.html">Главная</a>
-        <a href="ai-assistant.html">ИИ помощник</a>
-      </nav>
-      <button class="hamburger" aria-label="Меню">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
+/* ============================================================
+   ROOT / ПЕРЕМЕННЫЕ
+   ============================================================ */
+:root {
+  --bg-primary: #090b10;
+  --bg-secondary: #0f141e;
+  --bg-card: #151e2a;
+  --bg-card-hover: #1c2838;
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-hover: rgba(83, 214, 194, 0.4);
+  --text-primary: #f0f4fa;
+  --text-secondary: #9aadc9;
+  --text-muted: #5a6f8a;
+  --accent: #53d6c2;
+  --accent-glow: rgba(83, 214, 194, 0.12);
+  --accent-gradient: linear-gradient(135deg, #53d6c2, #2f9b8a);
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+  --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
-  <main class="container">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-card">
-        <div class="hero-glow"></div>
-        <h1>Дашборд предпринимателя</h1>
-        <p>Сайт объединяет рабочие дашборды и бонусный слой по искусственному интеллекту. Каждая панель помогает быстро принимать решения, видеть риски и понимать, где тратятся ресурсы.</p>
-        <div class="hero-metrics">
-          <div class="hero-stat" data-count="6">
-            <strong>0</strong>
-            <span>ключевых блоков</span>
-          </div>
-          <div class="hero-stat" data-count="1">
-            <strong>0</strong>
-            <span>ИИ-помощник</span>
-          </div>
-          <div class="hero-stat" data-count="100">
-            <strong>0%</strong>
-            <span>настройка под бизнес</span>
-          </div>
-        </div>
-        <div class="hero-actions">
-          <a class="btn" href="ai-assistant.html">Открыть ИИ помощника →</a>
-          <a class="btn secondary" href="#dashboards">Открыть дашборды</a>
-        </div>
-      </div>
-    </section>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    <!-- FEATURES -->
-    <section class="feature-band">
-      <article class="feature-card fade-item">
-        <span class="badge">Фокус</span>
-        <h3>Один взгляд на главное</h3>
-        <p>Все важные сигналы собраны в одном контексте, чтобы не терять время на поиск причин.</p>
-      </article>
-      <article class="feature-card fade-item">
-        <span class="badge">Действие</span>
-        <h3>Готовый следующий шаг</h3>
-        <p>Каждый блок показывает не только проблему, но и вариант действия прямо сейчас.</p>
-      </article>
-      <article class="feature-card fade-item">
-        <span class="badge">Рост</span>
-        <h3>Переход из хаоса в систему</h3>
-        <p>Сервис помогает выстроить привычку видеть деньги, энергию и клиентов в одной логике.</p>
-      </article>
-    </section>
+html {
+  scroll-behavior: smooth;
+}
 
-    <!-- HOW IT WORKS -->
-    <section class="how-it-works">
-      <div class="section-heading fade-item">
-        <span class="badge">Как это работает</span>
-        <h2>От сигнала к действию за один цикл</h2>
-      </div>
-      <div class="steps-grid">
-        <article class="step-card fade-item">
-          <span class="step-number">01</span>
-          <h3>Собираем сигнал</h3>
-          <p>Смотрим на состояние энергии, денег, клиентов и ИИ в одном фокусе.</p>
-        </article>
-        <article class="step-card fade-item">
-          <span class="step-number">02</span>
-          <h3>Показываем риск</h3>
-          <p>Каждый дашборд выделяет, где есть проблема и насколько она критична.</p>
-        </article>
-        <article class="step-card fade-item">
-          <span class="step-number">03</span>
-          <h3>Даём следующий шаг</h3>
-          <p>ИИ помощник превращает наблюдение в понятное действие и готовый план.</p>
-        </article>
-      </div>
-    </section>
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
 
-    <!-- VALUE -->
-    <section class="value-section">
-      <div class="section-heading fade-item">
-        <span class="badge">Почему это полезно</span>
-        <h2>Поддерживает предпринимателя в моменте выбора</h2>
-      </div>
-      <div class="value-grid">
-        <article class="value-card fade-item">
-          <h3>Меньше эмоционального шума</h3>
-          <p>Сервис помогает смотреть на ситуацию по фактам, а не по панике или усталости.</p>
-        </article>
-        <article class="value-card fade-item">
-          <h3>Быстрее принимать решения</h3>
-          <p>Ключевые сигналы уже структурированы, поэтому не нужно собирать их вручную.</p>
-        </article>
-        <article class="value-card fade-item">
-          <h3>Лучше управлять ростом</h3>
-          <p>Каждый блок помогает не только видеть проблему, но и понимать, куда направить усилия.</p>
-        </article>
-      </div>
-    </section>
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
 
-    <!-- FINAL CTA -->
-    <section class="final-cta fade-item">
-      <div class="final-cta-content">
-        <span class="badge">В итоге</span>
-        <h2>Предприниматель получает ясность, скорость и контроль</h2>
-        <p>Сервис помогает не просто видеть числа, а быстро понимать, что сейчас важно, где риск и что делать дальше.</p>
-        <a class="btn" href="ai-assistant.html">Перейти к ИИ помощнику →</a>
-      </div>
-    </section>
+/* ============================================================
+   HAMBURGER
+   ============================================================ */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
 
-    <!-- DASHBOARDS -->
-    <section id="dashboards">
-      <h2 class="section-title fade-item">Ключевые дашборды</h2>
-      <div class="dashboard-grid">
-        <article class="card fade-item">
-          <span class="badge">Блок 1</span>
-          <h3>🧠 Ментальная касса</h3>
-          <p>Контроль сна, фокуса и энергии для защиты качества решений основателя.</p>
-          <div class="metrics"><span>Сон</span><span>Фокус</span><span>Энергия</span></div>
-          <div class="actions">
-            <span class="link">Оперативный риск</span>
-            <button class="btn secondary" data-open-dashboard="mental">Погрузиться</button>
-          </div>
-        </article>
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-secondary);
+  border-radius: 2px;
+  transition: all var(--transition);
+}
 
-        <article class="card fade-item">
-          <span class="badge">Блок 2</span>
-          <h3>⏰ Золотые часы</h3>
-          <p>Выручка и маржинальность по часам, чтобы переносить рекламный бюджет на самые сильные окна.</p>
-          <div class="metrics"><span>Часы</span><span>Чек</span><span>Конверсия</span></div>
-          <div class="actions">
-            <span class="link">Самое важное окно</span>
-            <button class="btn secondary" data-open-dashboard="hours">Погрузиться</button>
-          </div>
-        </article>
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
 
-        <article class="card fade-item">
-          <span class="badge">Блок 3</span>
-          <h3>🗑️ Мусорное ведро</h3>
-          <p>Скрытые расходы на плохих клиентов и их влияние на прибыль и репутацию.</p>
-          <div class="metrics"><span>Канал</span><span>Возвраты</span><span>Поддержка</span></div>
-          <div class="actions">
-            <span class="link">Реальная цена клиента</span>
-            <button class="btn secondary" data-open-dashboard="waste">Погрузиться</button>
-          </div>
-        </article>
+/* ============================================================
+   HEADER
+   ============================================================ */
+header {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(9, 11, 16, 0.6);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all var(--transition);
+}
 
-        <article class="card fade-item">
-          <span class="badge">Блок 4</span>
-          <h3>📣 Скорость сарафана</h3>
-          <p>Скорость, с которой клиенты начинают рекомендовать бизнес, прежде чем это станет поздно.</p>
-          <div class="metrics"><span>Рефералы</span><span>24 часа</span><span>7 дней</span></div>
-          <div class="actions">
-            <span class="link">Пути роста</span>
-            <button class="btn secondary" data-open-dashboard="word">Погрузиться</button>
-          </div>
-        </article>
+header.scrolled {
+  background: rgba(9, 11, 16, 0.92);
+  padding: 12px 0;
+}
 
-        <article class="card fade-item">
-          <span class="badge">Блок 5</span>
-          <h3>💰 Будущая касса</h3>
-          <p>Чёткий взгляд на остаток денег, ожидаемые поступления и запас времени до нуля.</p>
-          <div class="metrics"><span>Дни до нуля</span><span>Дебиторка</span><span>Прогноз</span></div>
-          <div class="actions">
-            <span class="link">Финансовая стабильность</span>
-            <button class="btn secondary" data-open-dashboard="cash">Погрузиться</button>
-          </div>
-        </article>
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
 
-        <article class="card fade-item">
-          <span class="badge">Бонус</span>
-          <h3>🤖 Эффективность ИИ</h3>
-          <p>Отслеживание доли задач, которые выполняются с нейросетями вместе с командой.</p>
-          <div class="metrics"><span>ИИ задачи</span><span>Тренд</span><span>Цель</span></div>
-          <div class="actions">
-            <span class="link">Переход на следующий уровень</span>
-            <button class="btn secondary" data-open-dashboard="ai">Погрузиться</button>
-          </div>
-        </article>
-      </div>
-    </section>
+.brand {
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.3px;
+}
 
-    <!-- CHAT -->
-    <section class="panel chat-card fade-item">
-      <div class="chat-header">
-        <h3>🤖 ИИ помощник по всем дашбордам</h3>
-        <span class="online-status"><span class="dot"></span> Онлайн</span>
-      </div>
-      <p class="small">Можете задать вопрос по любому блоку: энергия, клиенты, касса, ИИ или реклама.</p>
-      <div class="messages"></div>
-      <form class="chat-form">
-        <div class="form-row">
-          <input type="text" data-chat-input placeholder="Например: проверь мою кассу" />
-          <button class="btn" type="submit">Отправить →</button>
-        </div>
-      </form>
-    </section>
-  </main>
+.nav-links {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
 
-  <div class="modal" aria-hidden="true">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 data-modal-title></h3>
-        <button class="close-btn" type="button" aria-label="Закрыть">×</button>
-      </div>
-      <div data-modal-body></div>
-    </div>
-  </div>
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color var(--transition);
+  position: relative;
+}
 
-  <script src="scripts.js"></script>
-</body>
-</html>
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width var(--transition);
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  margin: 48px 0 56px;
+  position: relative;
+}
+
+.hero-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 64px 56px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-glow {
+  position: absolute;
+  top: -40%;
+  left: -20%;
+  width: 80%;
+  height: 120%;
+  background: radial-gradient(ellipse, rgba(83, 214, 194, 0.06), transparent 70%);
+  animation: heroGlow 12s ease-in-out infinite alternate;
+}
+
+@keyframes heroGlow {
+  0% {
+    transform: translate(-5%, -5%) scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(5%, 5%) scale(1.1);
+    opacity: 1;
+  }
+}
+
+.hero-card h1 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 25%, #9ab0d0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.hero-card p {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  max-width: 720px;
+  margin: 0 auto 34px;
+  position: relative;
+}
+
+.hero-metrics {
+  display: flex;
+  justify-content: center;
+  gap: 64px;
+  flex-wrap: wrap;
+  margin-bottom: 34px;
+  position: relative;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat strong {
+  display: block;
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--accent);
+  transition: all var(--transition);
+}
+
+.hero-stat span {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.hero-actions {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 34px;
+  background: var(--accent-gradient);
+  color: #090b10;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 60px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: 0 4px 24px rgba(83, 214, 194, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.btn:hover::before {
+  opacity: 1;
+}
+
+.btn:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 8px 40px rgba(83, 214, 194, 0.35);
+}
+
+.btn.secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+.btn.secondary::before {
+  display: none;
+}
+
+.btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================================
+   BADGE
+   ============================================================ */
+.badge {
+  display: inline-block;
+  background: var(--accent-glow);
+  color: var(--accent);
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 4px 16px;
+  border-radius: 40px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+  border: 1px solid rgba(83, 214, 194, 0.08);
+}
+
+/* ============================================================
+   SECTION HEADING
+   ============================================================ */
+.section-heading {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.section-heading h2 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* ============================================================
+   FADE-ITEMS (анимация при скролле)
+   ============================================================ */
+.fade-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger задержки для карточек */
+.fade-item:nth-child(1) {
+  transition-delay: 0.05s;
+}
+.fade-item:nth-child(2) {
+  transition-delay: 0.12s;
+}
+.fade-item:nth-child(3) {
+  transition-delay: 0.19s;
+}
+.fade-item:nth-child(4) {
+  transition-delay: 0.26s;
+}
+.fade-item:nth-child(5) {
+  transition-delay: 0.33s;
+}
+.fade-item:nth-child(6) {
+  transition-delay: 0.40s;
+}
+
+/* ============================================================
+   FEATURE BAND
+   ============================================================ */
+.feature-band {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin: 40px 0 56px;
+}
+
+.feature-card {
+  background: var(--bg-card);
+  padding: 30px 26px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  transition: all var(--transition);
+  cursor: default;
+}
+
+.feature-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+}
+
+.feature-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* ============================================================
+   STEPS
+   ============================================================ */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.step-card {
+  background: var(--bg-card);
+  padding: 30px 24px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  transition: all var(--transition);
+  text-align: center;
+  cursor: default;
+}
+
+.step-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.step-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgba(83, 214, 194, 0.08);
+  display: block;
+  margin-bottom: 4px;
+  transition: color var(--transition);
+}
+
+.step-card:hover .step-number {
+  color: rgba(83, 214, 194, 0.2);
+}
+
+.step-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.step-card p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   VALUE GRID
+   ============================================================ */
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin: 32px 0 48px;
+}
+
+.value-card {
+  background: var(--bg-card);
+  padding: 30px 24px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  transition: all var(--transition);
+  cursor: default;
+}
+
+.value-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+  transform: translateY(-4px);
+}
+
+.value-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.value-card p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   FINAL CTA
+   ============================================================ */
+.final-cta {
+  margin: 48px 0;
+}
+
+.final-cta-content {
+  background: var(--bg-secondary);
+  padding: 52px 44px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.final-cta-content::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: radial-gradient(ellipse at bottom right, rgba(83, 214, 194, 0.04), transparent 70%);
+  pointer-events: none;
+}
+
+.final-cta-content h2 {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.final-cta-content p {
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 24px;
+  font-size: 1.05rem;
+  position: relative;
+}
+
+/* ============================================================
+   DASHBOARDS
+   ============================================================ */
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 34px;
+  letter-spacing: -0.02em;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.card {
+  background: var(--bg-card);
+  padding: 28px 24px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  transition: all var(--transition);
+  display: flex;
+  flex-direction: column;
+  cursor: default;
+  position: relative;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-md);
+  background: var(--accent-gradient);
+  opacity: 0;
+  transition: opacity var(--transition);
+  z-index: -1;
+}
+
+.card:hover::before {
+  opacity: 0.08;
+}
+
+.card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-8px);
+  background: var(--bg-card-hover);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+}
+
+.card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 4px;
+}
+
+.card p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  flex: 1;
+}
+
+.metrics {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.metrics span {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px 14px;
+  border-radius: 30px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+  transition: all var(--transition);
+}
+
+.card:hover .metrics span {
+  background: rgba(83, 214, 194, 0.08);
+  color: var(--text-primary);
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.link {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: color var(--transition);
+  cursor: default;
+}
+
+.link:hover {
+  color: var(--accent);
+}
+
+/* ============================================================
+   CHAT
+   ============================================================ */
+.panel {
+  background: var(--bg-card);
+  padding: 32px 28px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  margin: 40px 0 20px;
+  transition: all var(--transition);
+}
+
+.panel:hover {
+  border-color: var(--border-hover);
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.chat-header h3 {
+  font-size: 1.2rem;
+}
+
+.online-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #4ade80;
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+}
+
+.chat-card .messages {
+  max-height: 220px;
+  overflow-y: auto;
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-right: 4px;
+}
+
+.message {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px 20px;
+  border-radius: 20px 20px 20px 4px;
+  max-width: 82%;
+  font-size: 0.95rem;
+  align-self: flex-start;
+  color: var(--text-primary);
+  animation: messageIn 0.4s ease;
+}
+
+@keyframes messageIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.message.user {
+  background: var(--accent);
+  color: #090b10;
+  border-radius: 20px 20px 4px 20px;
+  align-self: flex-end;
+}
+
+.chat-form .form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.chat-form input {
+  flex: 1;
+  padding: 12px 22px;
+  border-radius: 60px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: all var(--transition);
+}
+
+.chat-form input::placeholder {
+  color: var(--text-muted);
+}
+
+.chat-form input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 4px rgba(83, 214, 194, 0.06);
+}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: modalFade 0.3s ease;
+}
+
+@keyframes modalFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--bg-secondary);
+  padding: 36px 32px;
+  border-radius: var(--radius-lg);
+  max-width: 640px;
+  width: 92%;
+  border: 1px solid var(--border-subtle);
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalSlide 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes modalSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.modal-header h3 {
+  font-size: 1.5rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 2rem;
+  cursor: pointer;
+  transition: color var(--transition);
+  line-height: 1;
+  padding: 4px 8px;
+}
+
+.close-btn:hover {
+  color: var(--text-primary);
+  transform: rotate(90deg);
+}
+
+/* ============================================================
+   VISUAL PANELS
+   ============================================================ */
+.visual-panel {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 18px;
+  border-radius: var(--radius-sm);
+  margin: 12px 0 18px;
+}
+
+.visual-pill-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+
+.visual-pill {
+  padding: 6px 18px;
+  border-radius: 40px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.visual-pill.good {
+  background: rgba(83, 214, 194, 0.15);
+  color: #53d6c2;
+}
+.visual-pill.warning {
+  background: rgba(255, 193, 7, 0.15);
+  color: #ffc107;
+}
+.visual-pill.danger {
+  background: rgba(244, 67, 54, 0.15);
+  color: #f44336;
+}
+
+.sparkline {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 64px;
+  margin-top: 8px;
+}
+
+.sparkline span {
+  display: block;
+  flex: 1;
+  background: var(--accent);
+  border-radius: 4px 4px 0 0;
+  opacity: 0.5;
+  transition: height 0.5s ease;
+}
+
+.sparkline span:hover {
+  opacity: 0.9;
+}
+
+.heat-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin: 8px 0;
+}
+
+.heat-cell {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: var(--accent);
+  opacity: 0.08;
+  transition: all 0.4s ease;
+}
+
+.heat-cell.active {
+  opacity: 0.45;
+}
+
+.heat-cell:hover {
+  opacity: 0.7 !important;
+  transform: scale(1.05);
+}
+
+.small {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.channel-bars {
+  margin: 8px 0;
+}
+
+.channel-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 6px 0;
+}
+
+.channel-row span {
+  width: 90px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.bar-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 1s ease;
+}
+
+.bar-fill.danger {
+  background: #f44336;
+}
+.bar-fill.warning {
+  background: #ffc107;
+}
+.bar-fill.good {
+  background: #53d6c2;
+}
+
+.timeline-steps {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+
+.timeline-step {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px 16px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  transition: all var(--transition);
+}
+
+.timeline-step.active {
+  background: var(--accent-glow);
+  color: var(--accent);
+}
+
+.forecast-bars {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 120px;
+  padding: 8px 0;
+  gap: 8px;
+}
+
+.forecast-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.forecast-bar strong {
+  display: block;
+  width: 24px;
+  background: var(--accent);
+  border-radius: 4px 4px 0 0;
+  opacity: 0.5;
+  min-height: 8px;
+  transition: height 0.8s ease;
+}
+
+.forecast-bar span {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.line-chart {
+  position: relative;
+  height: 80px;
+  margin: 8px 0;
+}
+
+.line-point {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: var(--accent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--bg-primary);
+  transition: all 0.4s ease;
+  cursor: default;
+}
+
+.line-point:hover {
+  transform: translate(-50%, -50%) scale(1.3);
+  box-shadow: 0 0 20px rgba(83, 214, 194, 0.3);
+}
+
+.detail-card {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 18px;
+  border-radius: var(--radius-sm);
+  margin: 12px 0;
+  transition: all var(--transition);
+}
+
+.detail-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.detail-card h4 {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.detail-card p {
+  font-size: 0.95rem;
+}
+
+.detail-card .recommendations {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: #1e2d3d;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2e4055;
+}
+
+/* ============================================================
+   ADAPTIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    padding: 16px 0 8px;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .hero-card {
+    padding: 32px 20px;
+  }
+
+  .hero-card h1 {
+    font-size: 2rem;
+  }
+
+  .hero-card p {
+    font-size: 1rem;
+  }
+
+  .hero-metrics {
+    gap: 28px;
+  }
+
+  .hero-stat strong {
+    font-size: 2rem;
+  }
+
+  .navbar {
+    flex-wrap: wrap;
+  }
+
+  .section-heading h2 {
+    font-size: 1.6rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-band {
+    grid-template-columns: 1fr;
+  }
+
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .value-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .final-cta-content {
+    padding: 32px 20px;
+  }
+
+  .final-cta-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+
+  .panel {
+    padding: 24px 16px;
+  }
+
+  .modal-content {
+    padding: 24px 16px;
+  }
+
+  .brand {
+    font-size: 1.1rem;
+  }
+
+  .chat-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1440px;
+    padding: 0 48px;
+  }
+
+  .hero-card h1 {
+    font-size: 3.8rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
