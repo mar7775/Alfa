@@ -1,6 +1,9 @@
+// ============================================================
+//   DASHBOARD DATA
+// ============================================================
 const dashboardData = {
   mental: {
-    title: 'Ментальная касса',
+    title: '🧠 Ментальная касса',
     subtitle: 'Энергия и фокус основателя',
     goal: 'Предотвратить выгорание и снизить число ошибок из-за усталости.',
     metrics: [
@@ -17,7 +20,7 @@ const dashboardData = {
     status: 'warning'
   },
   hours: {
-    title: 'Золотые часы',
+    title: '⏰ Золотые часы',
     subtitle: 'Выручка по времени суток',
     goal: 'Понять, когда приходят самые крупные и маржинальные клиенты.',
     metrics: [
@@ -34,7 +37,7 @@ const dashboardData = {
     status: 'good'
   },
   waste: {
-    title: 'Мусорное ведро',
+    title: '🗑️ Мусорное ведро',
     subtitle: 'Скрытые затраты на плохих клиентов',
     goal: 'Сравнивать не только стоимость привлечения, но и стоимость последствий.',
     metrics: [
@@ -51,7 +54,7 @@ const dashboardData = {
     status: 'danger'
   },
   word: {
-    title: 'Скорость сарафана',
+    title: '📣 Скорость сарафана',
     subtitle: 'Как быстро клиенты становятся адвокатами',
     goal: 'Измерять скорость, с которой новый клиент делится с друзьями.',
     metrics: [
@@ -68,7 +71,7 @@ const dashboardData = {
     status: 'warning'
   },
   cash: {
-    title: 'Будущая касса',
+    title: '💰 Будущая касса',
     subtitle: 'Остаток денег и ожидаемые поступления',
     goal: 'Показать, сколько дней можно работать на текущем остатке.',
     metrics: [
@@ -85,7 +88,7 @@ const dashboardData = {
     status: 'good'
   },
   ai: {
-    title: 'Эффективность искусственного интеллекта',
+    title: '🤖 Эффективность искусственного интеллекта',
     subtitle: 'Доля задач, переданных нейросетям',
     goal: 'Понять, как быстро команда внедряет искусственный интеллект в рутину.',
     metrics: [
@@ -103,16 +106,153 @@ const dashboardData = {
   }
 };
 
+// ============================================================
+//   ANIMATION: СЧЁТЧИК ЦИФР
+// ============================================================
+function animateCounters() {
+  document.querySelectorAll('.hero-stat[data-count]').forEach(stat => {
+    const target = parseInt(stat.getAttribute('data-count'));
+    const strong = stat.querySelector('strong');
+    const isPercent = stat.querySelector('span')?.textContent.includes('%');
+    let current = 0;
+    const increment = Math.max(1, Math.ceil(target / 50));
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      strong.textContent = isPercent ? current + '%' : current;
+    }, 30);
+  });
+}
+
+// ============================================================
+//   ANIMATION: FADE-IN ПРИ СКРОЛЛЕ
+// ============================================================
+function handleFadeItems() {
+  const items = document.querySelectorAll('.fade-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+  items.forEach(item => observer.observe(item));
+}
+
+// ============================================================
+//   HEADER: СКРОЛЛ
+// ============================================================
+function handleHeaderScroll() {
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 30) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+}
+
+// ============================================================
+//   HAMBURGER
+// ============================================================
+function handleHamburger() {
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+  }
+}
+
+// ============================================================
+//   ЧАТ: ЭФФЕКТ ПЕЧАТИ
+// ============================================================
+function typeMessage(element, text, speed = 25) {
+  let index = 0;
+  element.textContent = '';
+  const timer = setInterval(() => {
+    if (index < text.length) {
+      element.textContent += text.charAt(index);
+      index++;
+    } else {
+      clearInterval(timer);
+    }
+  }, speed);
+}
+
+// ============================================================
+//   ЧАТ: ОСНОВНАЯ ЛОГИКА
+// ============================================================
+const chatMessages = document.querySelector('.messages');
+const chatForm = document.querySelector('.chat-form');
+const chatInput = document.querySelector('[data-chat-input]');
+
+if (chatMessages && chatForm && chatInput) {
+  const initialMessage = 'Здравствуйте. Я помощник по дашбордам. Скажите, что сейчас важнее: энергия основателя, прибыль по часам, качество клиентов или запас денег?';
+
+  if (!chatMessages.querySelector('.message')) {
+    const first = document.createElement('div');
+    first.className = 'message';
+    chatMessages.appendChild(first);
+    typeMessage(first, initialMessage, 20);
+  }
+
+  chatForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const value = chatInput.value.trim();
+    if (!value) return;
+
+    const userMessage = document.createElement('div');
+    userMessage.className = 'message user';
+    userMessage.textContent = value;
+    chatMessages.appendChild(userMessage);
+
+    const lower = value.toLowerCase();
+    let answer = 'Я вижу, что вы хотите быстрое решение. Для старта рекомендую книгу «Краткая история времени» как ввод в системное мышление и ролик по управлению временем на YouTube: «Как не сгореть в бизнесе».';
+
+    if (lower.includes('энер') || lower.includes('устал') || lower.includes('сон')) {
+      answer = 'Проверьте «Ментальную кассу». Для восстановления ритма рекомендую книгу «Эссенция» и видео «Сон и продуктивность для предпринимателя».';
+    } else if (lower.includes('деньг') || lower.includes('касс') || lower.includes('ноль')) {
+      answer = 'Откройте «Будущую кассу». Для быстрого понимания финансов рекомендую книгу «Финансовая грамотность для предпринимателя» и видео «Как управлять денежным потоком».';
+    } else if (lower.includes('клиент') || lower.includes('жалоб') || lower.includes('отзыв')) {
+      answer = 'Смотрите «Мусорное ведро» и «Скорость сарафана». Хорошая книга — «Психология влияния», а полезное видео — «Как уменьшить возвраты и жалобы».';
+    } else if (lower.includes('рекл') || lower.includes('час')) {
+      answer = 'Проверьте «Золотые часы». Рекомендую книгу «Маркетинг без бюджета» и видео «Как искать лучшие часы для рекламы».';
+    } else if (lower.includes('ии') || lower.includes('нейр') || lower.includes('ai')) {
+      answer = 'Откройте блок «Эффективность искусственного интеллекта». Рекомендую книгу «Искусственный интеллект для предпринимателя» и видео «Автоматизация рутины с ИИ».';
+    }
+
+    const botMessage = document.createElement('div');
+    botMessage.className = 'message';
+    chatMessages.appendChild(botMessage);
+    typeMessage(botMessage, answer, 15);
+
+    chatInput.value = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  });
+}
+
+// ============================================================
+//   МОДАЛЬНОЕ ОКНО
+// ============================================================
 const modal = document.querySelector('.modal');
 const modalTitle = document.querySelector('[data-modal-title]');
 const modalBody = document.querySelector('[data-modal-body]');
+
 const closeModal = () => {
   if (modal) modal.classList.remove('open');
 };
 
 function buildDashboardVisual(key, item) {
-  const statusClass = item.status === 'good' ? 'good' : item.status === 'danger' ? 'danger' : 'warning';
-
   switch (key) {
     case 'mental':
       return `
@@ -138,7 +278,7 @@ function buildDashboardVisual(key, item) {
         <div class="visual-panel">
           <h4>Тепловая карта часов</h4>
           <div class="heat-grid">
-            ${['08', '10', '12', '14', '16', '18', '20'].map((hour, index) => `<div class="heat-cell ${index % 2 === 0 ? 'active' : ''}" style="opacity: ${0.45 + index * 0.08}"></div>`).join('')}
+            ${['08', '10', '12', '14', '16', '18', '20'].map((hour, index) => `<div class="heat-cell ${index % 2 === 0 ? 'active' : ''}" style="opacity: ${0.15 + index * 0.05}"></div>`).join('')}
           </div>
           <p class="small">Насыщенность клетки показывает, насколько сильное окно продаж стоит усилить.</p>
         </div>
@@ -190,16 +330,9 @@ function buildDashboardVisual(key, item) {
       `;
     default:
       return `
-        <div class="chart-card">
+        <div class="visual-panel">
           <h4>Визуализация</h4>
           <p>${item.visualization}</p>
-          <div class="bar-chart">
-            <div class="bar" style="height: 55%"></div>
-            <div class="bar" style="height: 78%"></div>
-            <div class="bar" style="height: 66%"></div>
-            <div class="bar" style="height: 88%"></div>
-            <div class="bar" style="height: 73%"></div>
-          </div>
         </div>
       `;
   }
@@ -209,13 +342,9 @@ function renderDetailPage(key) {
   const item = dashboardData[key];
   if (!item) return;
 
-  const detailTitle = document.getElementById('detail-title');
-  const detailSummary = document.getElementById('detail-summary');
-  const detailContent = document.getElementById('detail-content');
-  if (detailTitle && detailSummary && detailContent) {
-    detailTitle.textContent = `${item.title}`;
-    detailSummary.textContent = `${item.goal}`;
-    detailContent.innerHTML = `
+  if (modal && modalTitle && modalBody) {
+    modalTitle.textContent = item.title;
+    modalBody.innerHTML = `
       <div class="detail-card">
         <h4>Цель</h4>
         <p>${item.goal}</p>
@@ -247,67 +376,15 @@ function renderDetailPage(key) {
         <p>${item.complexity} — примерное время настройки: ${item.time}.</p>
       </div>
     `;
-    window.location.href = `dashboard.html?dashboard=${key}`;
+    modal.classList.add('open');
   }
 }
 
-function hydrateDashboardFromUrl() {
-  const params = new URLSearchParams(window.location.search);
-  const key = params.get('dashboard');
-  const item = dashboardData[key];
-  if (!item) return;
-
-  const detailTitle = document.getElementById('detail-title');
-  const detailSummary = document.getElementById('detail-summary');
-  const detailContent = document.getElementById('detail-content');
-  if (detailTitle && detailSummary && detailContent) {
-    detailTitle.textContent = item.title;
-    detailSummary.textContent = item.goal;
-    detailContent.innerHTML = `
-      <div class="detail-card">
-        <h4>Цель</h4>
-        <p>${item.goal}</p>
-      </div>
-      ${buildDashboardVisual(key, item)}
-      <div class="detail-card">
-        <h4>Какие цифры смотрим</h4>
-        ${item.metrics.map(metric => `<p><strong>${metric.label}</strong>: ${metric.formula}</p>`).join('')}
-      </div>
-      <div class="detail-card">
-        <h4>Источники данных</h4>
-        ${item.metrics.map(metric => `<p><strong>${metric.label}</strong>: ${metric.source}</p>`).join('')}
-      </div>
-      <div class="detail-card">
-        <h4>Пороговые значения</h4>
-        ${item.metrics.map(metric => `<p><strong>${metric.label}</strong>: ${metric.threshold}</p>`).join('')}
-      </div>
-      <div class="detail-card">
-        <h4>Обновление и действия</h4>
-        <p>${item.update}</p>
-        <p class="recommendations">${item.action}</p>
-      </div>
-      <div class="detail-card">
-        <h4>ИИ рекомендации</h4>
-        <p class="recommendations">${item.aiRecommendation}</p>
-      </div>
-      <div class="detail-card">
-        <h4>Сложность внедрения</h4>
-        <p>${item.complexity} — примерное время настройки: ${item.time}.</p>
-      </div>
-    `;
-  }
-}
-
-if (modal && modalTitle && modalBody) {
+if (modal) {
   document.querySelectorAll('[data-open-dashboard]').forEach(button => {
     button.addEventListener('click', () => {
       const key = button.getAttribute('data-open-dashboard');
-      if (!key) return;
-      if (document.getElementById('detail-title')) {
-        renderDetailPage(key);
-      } else {
-        window.location.href = `dashboard.html?dashboard=${key}`;
-      }
+      if (key) renderDetailPage(key);
     });
   });
 
@@ -318,63 +395,20 @@ if (modal && modalTitle && modalBody) {
   });
 }
 
-const chatMessages = document.querySelector('.messages');
-const chatForm = document.querySelector('.chat-form');
-const chatInput = document.querySelector('[data-chat-input]');
-
-if (chatMessages && chatForm && chatInput) {
-  const initialMessage = 'Здравствуйте. Я помощник по дашбордам. Скажите, что сейчас важнее: энергия основателя, прибыль по часам, качество клиентов или запас денег?';
-  if (!chatMessages.querySelector('.message')) {
-    const first = document.createElement('div');
-    first.className = 'message';
-    first.textContent = initialMessage;
-    chatMessages.appendChild(first);
-  }
-
-  chatForm.addEventListener('submit', event => {
-    event.preventDefault();
-    const value = chatInput.value.trim();
-    if (!value) return;
-
-    const userMessage = document.createElement('div');
-    userMessage.className = 'message user';
-    userMessage.textContent = value;
-    chatMessages.appendChild(userMessage);
-
-    const lower = value.toLowerCase();
-    let answer = 'Я вижу, что вы хотите быстрое решение. Для старта рекомендую книгу «Краткая история времени» как ввод в системное мышление и ролик по управлению временем на YouTube: «Как не сгореть в бизнесе».';
-
-    if (lower.includes('энер') || lower.includes('устал') || lower.includes('сон')) {
-      answer = 'Проверьте «Ментальную кассу». Для восстановления ритма рекомендую книгу «Эссенция» и видео «Сон и продуктивность для предпринимателя».';
-    } else if (lower.includes('деньг') || lower.includes('касс') || lower.includes('ноль')) {
-      answer = 'Откройте «Будущую кассу». Для быстрого понимания финансов рекомендую книгу «Финансовая грамотность для предпринимателя» и видео «Как управлять денежным потоком».';
-    } else if (lower.includes('клиент') || lower.includes('жалоб') || lower.includes('отзыв')) {
-      answer = 'Смотрите «Мусорное ведро» и «Скорость сарафана». Хорошая книга — «Психология влияния», а полезное видео — «Как уменьшить возвраты и жалобы».';
-    } else if (lower.includes('рекл') || lower.includes('час')) {
-      answer = 'Проверьте «Золотые часы». Рекомендую книгу «Маркетинг без бюджета» и видео «Как искать лучшие часы для рекламы».';
-    } else if (lower.includes('ии') || lower.includes('нейр') || lower.includes('ai')) {
-      answer = 'Откройте блок «Эффективность искусственного интеллекта». Рекомендую книгу «Искусственный интеллект для предпринимателя» и видео «Автоматизация рутины с ИИ».';
-    }
-
-    const botMessage = document.createElement('div');
-    botMessage.className = 'message';
-    botMessage.textContent = answer;
-    chatMessages.appendChild(botMessage);
-    chatInput.value = '';
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  });
-}
-
+// ============================================================
+//   АССИСТЕНТ (для ai-assistant.html)
+// ============================================================
 const assistantMessages = document.querySelector('[data-assistant-messages]');
 const assistantForm = document.querySelector('[data-assistant-form]');
 const assistantInput = document.querySelector('[data-assistant-input]');
+
 if (assistantMessages && assistantForm && assistantInput) {
   const initialAssistant = 'Я готов помочь с обучением и ростом. Давайте сначала поговорим об увлечениях и переживаниях. Что вас волнует прямо сейчас?';
   if (!assistantMessages.querySelector('.message')) {
     const first = document.createElement('div');
     first.className = 'message';
-    first.textContent = initialAssistant;
     assistantMessages.appendChild(first);
+    typeMessage(first, initialAssistant, 20);
   }
 
   assistantForm.addEventListener('submit', event => {
@@ -400,26 +434,36 @@ if (assistantMessages && assistantForm && assistantInput) {
 
     const botMessage = document.createElement('div');
     botMessage.className = 'message';
-    botMessage.textContent = answer;
     assistantMessages.appendChild(botMessage);
+    typeMessage(botMessage, answer, 15);
+
     assistantInput.value = '';
     assistantMessages.scrollTop = assistantMessages.scrollHeight;
   });
 }
 
+// ============================================================
+//   ЗАМЕТКИ
+// ============================================================
 const noteArea = document.querySelector('[data-note-area]');
 const saveNoteButton = document.querySelector('[data-save-note]');
+
 if (noteArea && saveNoteButton) {
   const saved = localStorage.getItem('assistant-note');
   if (saved) noteArea.value = saved;
+
   saveNoteButton.addEventListener('click', () => {
     localStorage.setItem('assistant-note', noteArea.value || 'Заметка пока пустая.');
-    saveNoteButton.textContent = 'Сохранено';
-    setTimeout(() => { saveNoteButton.textContent = 'Сохранить заметку'; }, 1100);
+    saveNoteButton.textContent = '✅ Сохранено';
+    setTimeout(() => { saveNoteButton.textContent = 'Сохранить заметку'; }, 1200);
   });
 }
 
+// ============================================================
+//   РАДАР
+// ============================================================
 const radarCanvas = document.querySelector('[data-radar]');
+
 if (radarCanvas) {
   const values = [78, 71, 66, 74, 81, 69];
   const labels = ['Энергия', 'Выручка', 'Клиенты', 'Рекомендации', 'Касса', 'ИИ'];
@@ -434,20 +478,89 @@ if (radarCanvas) {
 
   radarCanvas.innerHTML = `
     <svg viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="${center}" cy="${center}" r="${radius}" fill="none" stroke="rgba(255,255,255,0.15)" />
-      <circle cx="${center}" cy="${center}" r="${radius * 0.66}" fill="none" stroke="rgba(255,255,255,0.15)" />
-      <circle cx="${center}" cy="${center}" r="${radius * 0.33}" fill="none" stroke="rgba(255,255,255,0.15)" />
+      <circle cx="${center}" cy="${center}" r="${radius}" fill="none" stroke="rgba(255,255,255,0.08)" />
+      <circle cx="${center}" cy="${center}" r="${radius * 0.66}" fill="none" stroke="rgba(255,255,255,0.08)" />
+      <circle cx="${center}" cy="${center}" r="${radius * 0.33}" fill="none" stroke="rgba(255,255,255,0.08)" />
       ${labels.map((label, index) => {
         const angle = (Math.PI * 2 * index) / labels.length - Math.PI / 2;
-        const x = center + Math.cos(angle) * (radius + 16);
-        const y = center + Math.sin(angle) * (radius + 16);
+        const x = center + Math.cos(angle) * (radius + 18);
+        const y = center + Math.sin(angle) * (radius + 18);
         return `<text x="${x}" y="${y}" fill="#8da0ba" font-size="12" text-anchor="middle">${label}</text>`;
       }).join('')}
-      <polygon points="${points}" fill="rgba(83,214,194,0.24)" stroke="#53d6c2" stroke-width="2" />
+      <polygon points="${points}" fill="rgba(83,214,194,0.15)" stroke="#53d6c2" stroke-width="2" />
     </svg>
   `;
 }
 
+// ============================================================
+//   ЗАПУСК ВСЕХ АНИМАЦИЙ
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  // Счётчики с задержкой, чтобы они появились после загрузки
+  setTimeout(animateCounters, 400);
+
+  // Fade-in при скролле
+  handleFadeItems();
+
+  // Header при скролле
+  handleHeaderScroll();
+
+  // Гамбургер
+  handleHamburger();
+
+  // Обновляем видимые элементы при загрузке
+  document.querySelectorAll('.fade-item').forEach(item => {
+    const rect = item.getBoundingClientRect();
+    if (rect.top < window.innerHeight) {
+      item.classList.add('visible');
+    }
+  });
+});
+
+// Если есть detail-title — значит мы на dashboard.html
 if (document.getElementById('detail-title')) {
-  hydrateDashboardFromUrl();
+  const params = new URLSearchParams(window.location.search);
+  const key = params.get('dashboard');
+  const item = dashboardData[key];
+  if (item) {
+    const detailTitle = document.getElementById('detail-title');
+    const detailSummary = document.getElementById('detail-summary');
+    const detailContent = document.getElementById('detail-content');
+    if (detailTitle && detailSummary && detailContent) {
+      detailTitle.textContent = item.title;
+      detailSummary.textContent = item.goal;
+      detailContent.innerHTML = `
+        <div class="detail-card">
+          <h4>Цель</h4>
+          <p>${item.goal}</p>
+        </div>
+        ${buildDashboardVisual(key, item)}
+        <div class="detail-card">
+          <h4>Какие цифры смотрим</h4>
+          ${item.metrics.map(metric => `<p><strong>${metric.label}</strong>: ${metric.formula}</p>`).join('')}
+        </div>
+        <div class="detail-card">
+          <h4>Источники данных</h4>
+          ${item.metrics.map(metric => `<p><strong>${metric.label}</strong>: ${metric.source}</p>`).join('')}
+        </div>
+        <div class="detail-card">
+          <h4>Пороговые значения</h4>
+          ${item.metrics.map(metric => `<p><strong>${metric.label}</strong>: ${metric.threshold}</p>`).join('')}
+        </div>
+        <div class="detail-card">
+          <h4>Обновление и действия</h4>
+          <p>${item.update}</p>
+          <p class="recommendations">${item.action}</p>
+        </div>
+        <div class="detail-card">
+          <h4>ИИ рекомендации</h4>
+          <p class="recommendations">${item.aiRecommendation}</p>
+        </div>
+        <div class="detail-card">
+          <h4>Сложность внедрения</h4>
+          <p>${item.complexity} — примерное время настройки: ${item.time}.</p>
+        </div>
+      `;
+    }
+  }
 }
