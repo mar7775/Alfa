@@ -1183,7 +1183,7 @@ header.scrolled {
     align-items: flex-start;
   }
 
-  /* === FIX: КНОПКА "ОТПРАВИТЬ" НА МОБИЛЬНЫХ === */
+  /* ===== ТОЛЬКО ДЛЯ МОБИЛЬНЫХ: КНОПКА "ОТПРАВИТЬ" ===== */
   .chat-form .form-row {
     flex-direction: column;
     gap: 10px;
