@@ -107,13 +107,13 @@ const dashboardData = {
 };
 
 // ============================================================
-//   ANIMATION: СЧЁТЧИК ЦИФР
+//   ANIMATION: СЧЁТЧИК ЦИФР (исправлен — % не пропадает)
 // ============================================================
 function animateCounters() {
   document.querySelectorAll('.hero-stat[data-count]').forEach(stat => {
     const target = parseInt(stat.getAttribute('data-count'));
     const strong = stat.querySelector('strong');
-    const isPercent = stat.querySelector('span')?.textContent.includes('%');
+    const suffix = stat.getAttribute('data-suffix') || '';
     let current = 0;
     const increment = Math.max(1, Math.ceil(target / 50));
 
@@ -123,7 +123,12 @@ function animateCounters() {
         current = target;
         clearInterval(timer);
       }
-      strong.textContent = isPercent ? current + '%' : current;
+      // Если есть суффикс (например, %), добавляем его
+      if (suffix) {
+        strong.textContent = current + suffix;
+      } else {
+        strong.textContent = current;
+      }
     }, 30);
   });
 }
