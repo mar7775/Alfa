@@ -734,3 +734,6 @@ section {
 ::-webkit-scrollbar-thumb:hover {
   background: #3d5468;
 }
+body {
+  background: red !important;
+}
