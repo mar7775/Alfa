@@ -527,7 +527,7 @@ header.scrolled {
 }
 
 /* ============================================================
-   DASHBOARDS
+   DASHBOARDS — 3 КОЛОНКИ НА ДЕСКТОПЕ
    ============================================================ */
 .section-title {
   font-size: 2.2rem;
@@ -539,7 +539,7 @@ header.scrolled {
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   margin-bottom: 48px;
 }
@@ -1086,7 +1086,7 @@ header.scrolled {
 }
 
 /* ============================================================
-   ADAPTIVE
+   ADAPTIVE — ТОЛЬКО МОБИЛЬНЫЕ
    ============================================================ */
 @media (max-width: 768px) {
   .container {
@@ -1137,6 +1137,7 @@ header.scrolled {
     font-size: 1.6rem;
   }
 
+  /* ДАШБОРДЫ: 1 КОЛОНКА НА МОБИЛЬНЫХ */
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
@@ -1183,7 +1184,7 @@ header.scrolled {
     align-items: flex-start;
   }
 
-  /* ===== ТОЛЬКО ДЛЯ МОБИЛЬНЫХ: КНОПКА "ОТПРАВИТЬ" ===== */
+  /* КНОПКА "ОТПРАВИТЬ" НА МОБИЛЬНЫХ */
   .chat-form .form-row {
     flex-direction: column;
     gap: 10px;
@@ -1212,5 +1213,23 @@ header.scrolled {
 
   .chat-card .messages {
     max-height: 180px;
+  }
+}
+
+/* ============================================================
+   ДЛЯ БОЛЬШИХ ЭКРАНОВ (ОПЦИОНАЛЬНО)
+   ============================================================ */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1440px;
+    padding: 0 48px;
+  }
+
+  .hero-card h1 {
+    font-size: 3.8rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
