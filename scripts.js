@@ -107,13 +107,16 @@ const dashboardData = {
 };
 
 // ============================================================
-//   ANIMATION: СЧЁТЧИК ЦИФР (исправлен — % не пропадает)
+//   ANIMATION: СЧЁТЧИК ЦИФР (ИСПРАВЛЕН — % НЕ ПРОПАДАЕТ)
 // ============================================================
 function animateCounters() {
   document.querySelectorAll('.hero-stat[data-count]').forEach(stat => {
     const target = parseInt(stat.getAttribute('data-count'));
     const strong = stat.querySelector('strong');
     const suffix = stat.getAttribute('data-suffix') || '';
+    
+    // Получаем начальное значение из strong (там может быть "0%" или "0")
+    const initialText = strong.textContent;
     let current = 0;
     const increment = Math.max(1, Math.ceil(target / 50));
 
@@ -123,16 +126,11 @@ function animateCounters() {
         current = target;
         clearInterval(timer);
       }
-      // Если есть суффикс (например, %), добавляем его
-      if (suffix) {
-        strong.textContent = current + suffix;
-      } else {
-        strong.textContent = current;
-      }
+      // Всегда показываем число + суффикс (если есть)
+      strong.textContent = current + suffix;
     }, 30);
   });
 }
-
 // ============================================================
 //   ANIMATION: FADE-IN ПРИ СКРОЛЛЕ
 // ============================================================
