@@ -1,918 +1,229 @@
-/* ============================================================
-   ROOT / БАЗА
-   ============================================================ */
-:root {
-  --bg-primary: #0b0d11;
-  --bg-secondary: #11161e;
-  --bg-card: #161e2a;
-  --bg-card-hover: #1c2634;
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-hover: rgba(83, 214, 194, 0.4);
-  --text-primary: #f0f4fa;
-  --text-secondary: #9aadc9;
-  --text-muted: #5e738f;
-  --accent: #53d6c2;
-  --accent-glow: rgba(83, 214, 194, 0.15);
-  --radius-lg: 24px;
-  --radius-md: 16px;
-  --radius-sm: 12px;
-  --transition: 0.25s ease;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Широкий контейнер — на всю ширину, но с красивыми отступами */
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 32px;
-}
-
-/* ============================================================
-   HEADER
-   ============================================================ */
-header {
-  padding: 20px 0;
-  border-bottom: 1px solid var(--border-subtle);
-  backdrop-filter: blur(12px);
-  background: rgba(11, 13, 17, 0.7);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.brand {
-  font-size: 1.5rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #53d6c2, #2f9b8a);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: -0.3px;
-}
-
-.nav-links {
-  display: flex;
-  gap: 28px;
-  align-items: center;
-}
-
-.nav-links a {
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: color var(--transition);
-  position: relative;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--accent);
-  transition: width var(--transition);
-}
-
-.nav-links a:hover {
-  color: var(--text-primary);
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-/* ============================================================
-   HERO
-   ============================================================ */
-.hero {
-  margin: 40px 0 50px;
-}
-
-.hero-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 56px 48px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at 30% 40%, rgba(83, 214, 194, 0.06), transparent 60%);
-  pointer-events: none;
-}
-
-.hero-card h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #ffffff 30%, #9ab0d0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 16px;
-  position: relative;
-}
-
-.hero-card p {
-  font-size: 1.2rem;
-  color: var(--text-secondary);
-  max-width: 720px;
-  margin: 0 auto 32px;
-  position: relative;
-}
-
-.hero-metrics {
-  display: flex;
-  justify-content: center;
-  gap: 56px;
-  flex-wrap: wrap;
-  margin-bottom: 32px;
-  position: relative;
-}
-
-.hero-stat strong {
-  display: block;
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--accent);
-}
-
-.hero-stat span {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-}
-
-.hero-actions {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  position: relative;
-}
-
-/* ============================================================
-   BUTTONS
-   ============================================================ */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 32px;
-  background: var(--accent);
-  color: #0b0d11;
-  font-weight: 600;
-  font-size: 0.95rem;
-  border-radius: 60px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: all var(--transition);
-  box-shadow: 0 4px 20px rgba(83, 214, 194, 0.25);
-}
-
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(83, 214, 194, 0.35);
-  background: #66e0cc;
-}
-
-.btn.secondary {
-  background: transparent;
-  color: var(--text-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: none;
-}
-
-.btn.secondary:hover {
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--text-primary);
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-}
-
-/* ============================================================
-   BADGE
-   ============================================================ */
-.badge {
-  display: inline-block;
-  background: var(--accent-glow);
-  color: var(--accent);
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 4px 14px;
-  border-radius: 40px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 8px;
-}
-
-/* ============================================================
-   SECTION HEADING
-   ============================================================ */
-.section-heading {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.section-heading h2 {
-  font-size: 2.4rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-/* ============================================================
-   FEATURE BAND
-   ============================================================ */
-.feature-band {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-  margin: 40px 0 56px;
-}
-
-.feature-card {
-  background: var(--bg-card);
-  padding: 28px 24px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
-  transition: all var(--transition);
-}
-
-.feature-card:hover {
-  border-color: var(--border-hover);
-  background: var(--bg-card-hover);
-  transform: translateY(-4px);
-}
-
-.feature-card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 6px;
-}
-
-.feature-card p {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-}
-
-/* ============================================================
-   STEPS
-   ============================================================ */
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
-  margin-bottom: 48px;
-}
-
-.step-card {
-  background: var(--bg-card);
-  padding: 28px 24px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
-  transition: all var(--transition);
-  text-align: center;
-}
-
-.step-card:hover {
-  border-color: var(--border-hover);
-  transform: translateY(-4px);
-}
-
-.step-number {
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: rgba(83, 214, 194, 0.15);
-  display: block;
-  margin-bottom: 4px;
-}
-
-.step-card h3 {
-  font-size: 1.1rem;
-  margin-bottom: 4px;
-}
-
-.step-card p {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-/* ============================================================
-   VALUE GRID
-   ============================================================ */
-.value-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
-  margin: 32px 0 48px;
-}
-
-.value-card {
-  background: var(--bg-card);
-  padding: 28px 24px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
-  transition: all var(--transition);
-}
-
-.value-card:hover {
-  border-color: var(--border-hover);
-  background: var(--bg-card-hover);
-}
-
-.value-card h3 {
-  font-size: 1.1rem;
-  margin-bottom: 4px;
-}
-
-.value-card p {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-/* ============================================================
-   FINAL CTA
-   ============================================================ */
-.final-cta {
-  margin: 48px 0;
-}
-
-.final-cta-content {
-  background: var(--bg-secondary);
-  padding: 48px 40px;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-subtle);
-  text-align: center;
-}
-
-.final-cta-content h2 {
-  font-size: 2.2rem;
-  margin-bottom: 12px;
-}
-
-.final-cta-content p {
-  color: var(--text-secondary);
-  max-width: 600px;
-  margin: 0 auto 24px;
-  font-size: 1.05rem;
-}
-
-/* ============================================================
-   DASHBOARDS
-   ============================================================ */
-.section-title {
-  font-size: 2.2rem;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 32px;
-  letter-spacing: -0.02em;
-}
-
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  margin-bottom: 48px;
-}
-
-.card {
-  background: var(--bg-card);
-  padding: 28px 24px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
-  transition: all var(--transition);
-  display: flex;
-  flex-direction: column;
-}
-
-.card:hover {
-  border-color: var(--border-hover);
-  transform: translateY(-6px);
-  background: var(--bg-card-hover);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-}
-
-.card h3 {
-  font-size: 1.25rem;
-  margin-bottom: 4px;
-}
-
-.card p {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  margin-bottom: 12px;
-  flex: 1;
-}
-
-.metrics {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 14px;
-}
-
-.metrics span {
-  background: rgba(255, 255, 255, 0.04);
-  padding: 4px 12px;
-  border-radius: 30px;
-  font-size: 0.7rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  letter-spacing: 0.02em;
-}
-
-.actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.link {
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  font-weight: 500;
-  transition: color var(--transition);
-}
-
-.link:hover {
-  color: var(--accent);
-}
-
-/* ============================================================
-   CHAT
-   ============================================================ */
-.panel {
-  background: var(--bg-card);
-  padding: 32px 28px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
-  margin: 40px 0 20px;
-}
-
-.chat-card .messages {
-  max-height: 200px;
-  overflow-y: auto;
-  margin: 16px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.message {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 10px 18px;
-  border-radius: 18px 18px 18px 4px;
-  max-width: 82%;
-  font-size: 0.95rem;
-  align-self: flex-start;
-  color: var(--text-primary);
-}
-
-.message.user {
-  background: var(--accent);
-  color: #0b0d11;
-  border-radius: 18px 18px 4px 18px;
-  align-self: flex-end;
-}
-
-.chat-form .form-row {
-  display: flex;
-  gap: 12px;
-}
-
-.chat-form input {
-  flex: 1;
-  padding: 12px 20px;
-  border-radius: 60px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--text-primary);
-  font-size: 0.95rem;
-  transition: border var(--transition);
-}
-
-.chat-form input::placeholder {
-  color: var(--text-muted);
-}
-
-.chat-form input:focus {
-  outline: none;
-  border-color: var(--accent);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-/* ============================================================
-   MODAL
-   ============================================================ */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(12px);
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-
-.modal.open {
-  display: flex;
-}
-
-.modal-content {
-  background: var(--bg-secondary);
-  padding: 32px 28px;
-  border-radius: var(--radius-lg);
-  max-width: 640px;
-  width: 92%;
-  border: 1px solid var(--border-subtle);
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.modal-header h3 {
-  font-size: 1.5rem;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  font-size: 2rem;
-  cursor: pointer;
-  transition: color var(--transition);
-  line-height: 1;
-}
-
-.close-btn:hover {
-  color: var(--text-primary);
-}
-
-/* ============================================================
-   VISUAL PANELS (внутри модалки / деталей)
-   ============================================================ */
-.visual-panel {
-  background: rgba(255, 255, 255, 0.02);
-  padding: 16px;
-  border-radius: var(--radius-sm);
-  margin: 12px 0 16px;
-}
-
-.visual-pill-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 8px 0;
-}
-
-.visual-pill {
-  padding: 6px 16px;
-  border-radius: 40px;
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.visual-pill.good {
-  background: rgba(83, 214, 194, 0.18);
-  color: #53d6c2;
-}
-
-.visual-pill.warning {
-  background: rgba(255, 193, 7, 0.18);
-  color: #ffc107;
-}
-
-.visual-pill.danger {
-  background: rgba(244, 67, 54, 0.18);
-  color: #f44336;
-}
-
-.sparkline {
-  display: flex;
-  align-items: flex-end;
-  gap: 6px;
-  height: 64px;
-  margin-top: 8px;
-}
-
-.sparkline span {
-  display: block;
-  flex: 1;
-  background: var(--accent);
-  border-radius: 4px 4px 0 0;
-  opacity: 0.5;
-  transition: height 0.3s;
-}
-
-.heat-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
-  margin: 8px 0;
-}
-
-.heat-cell {
-  aspect-ratio: 1;
-  border-radius: 6px;
-  background: var(--accent);
-  opacity: 0.1;
-}
-
-.heat-cell.active {
-  opacity: 0.5;
-}
-
-.small {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-}
-
-.channel-bars {
-  margin: 8px 0;
-}
-
-.channel-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 6px 0;
-}
-
-.channel-row span {
-  width: 90px;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-}
-
-.bar-track {
-  flex: 1;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.bar-fill {
-  height: 100%;
-  border-radius: 6px;
-}
-
-.bar-fill.danger {
-  background: #f44336;
-}
-.bar-fill.warning {
-  background: #ffc107;
-}
-.bar-fill.good {
-  background: #53d6c2;
-}
-
-.timeline-steps {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 8px 0;
-}
-
-.timeline-step {
-  background: rgba(255, 255, 255, 0.04);
-  padding: 4px 14px;
-  border-radius: 30px;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.timeline-step.active {
-  background: var(--accent-glow);
-  color: var(--accent);
-}
-
-.forecast-bars {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-  height: 120px;
-  padding: 8px 0;
-  gap: 8px;
-}
-
-.forecast-bar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  flex: 1;
-}
-
-.forecast-bar strong {
-  display: block;
-  width: 24px;
-  background: var(--accent);
-  border-radius: 4px 4px 0 0;
-  opacity: 0.6;
-  min-height: 8px;
-}
-
-.forecast-bar span {
-  font-size: 0.7rem;
-  color: var(--text-secondary);
-}
-
-.line-chart {
-  position: relative;
-  height: 80px;
-  margin: 8px 0;
-}
-
-.line-point {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  background: var(--accent);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  border: 2px solid var(--bg-primary);
-}
-
-.detail-card {
-  background: rgba(255, 255, 255, 0.02);
-  padding: 16px;
-  border-radius: var(--radius-sm);
-  margin: 12px 0;
-}
-
-.detail-card h4 {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  margin-bottom: 4px;
-}
-
-.detail-card p {
-  font-size: 0.95rem;
-}
-
-.detail-card .recommendations {
-  color: var(--accent);
-  font-weight: 500;
-}
-
-/* ============================================================
-   SCROLLBAR
-   ============================================================ */
-::-webkit-scrollbar {
-  width: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: #2a3a4a;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #3d5468;
-}
-
-/* ============================================================
-   ADAPTIVE
-   ============================================================ */
-@media (max-width: 768px) {
-  .container {
-    padding: 0 16px;
-  }
-
-  .hero-card {
-    padding: 32px 20px;
-  }
-
-  .hero-card h1 {
-    font-size: 2rem;
-  }
-
-  .hero-card p {
-    font-size: 1rem;
-  }
-
-  .hero-metrics {
-    gap: 24px;
-  }
-
-  .hero-stat strong {
-    font-size: 1.6rem;
-  }
-
-  .navbar {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .nav-links {
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .section-heading h2 {
-    font-size: 1.8rem;
-  }
-
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .feature-band {
-    grid-template-columns: 1fr;
-  }
-
-  .steps-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .value-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .final-cta-content {
-    padding: 32px 20px;
-  }
-
-  .final-cta-content h2 {
-    font-size: 1.6rem;
-  }
-
-  .btn {
-    padding: 12px 24px;
-    font-size: 0.9rem;
-  }
-
-  .panel {
-    padding: 24px 16px;
-  }
-
-  .modal-content {
-    padding: 24px 16px;
-  }
-
-  .brand {
-    font-size: 1.2rem;
-  }
-}
-
-@media (min-width: 1400px) {
-  .container {
-    max-width: 1440px;
-    padding: 0 48px;
-  }
-
-  .hero-card h1 {
-    font-size: 3.6rem;
-  }
-
-  .dashboard-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Панель управления основателя</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <div class="container navbar">
+      <div class="brand">✦ Панель управления основателя</div>
+      <nav class="nav-links">
+        <a href="index.html">Главная</a>
+        <a href="ai-assistant.html">ИИ помощник</a>
+      </nav>
+      <button class="hamburger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-card">
+        <div class="hero-glow"></div>
+        <h1>Дашборд предпринимателя</h1>
+        <p>Сайт объединяет рабочие дашборды и бонусный слой по искусственному интеллекту. Каждая панель помогает быстро принимать решения, видеть риски и понимать, где тратятся ресурсы.</p>
+        <div class="hero-metrics">
+          <div class="hero-stat" data-count="6">
+            <strong>0</strong>
+            <span>ключевых блоков</span>
+          </div>
+          <div class="hero-stat" data-count="1">
+            <strong>0</strong>
+            <span>ИИ-помощник</span>
+          </div>
+          <div class="hero-stat" data-count="100">
+            <strong>0%</strong>
+            <span>настройка под бизнес</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a class="btn" href="ai-assistant.html">Открыть ИИ помощника →</a>
+          <a class="btn secondary" href="#dashboards">Открыть дашборды</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="feature-band">
+      <article class="feature-card fade-item">
+        <span class="badge">Фокус</span>
+        <h3>Один взгляд на главное</h3>
+        <p>Все важные сигналы собраны в одном контексте, чтобы не терять время на поиск причин.</p>
+      </article>
+      <article class="feature-card fade-item">
+        <span class="badge">Действие</span>
+        <h3>Готовый следующий шаг</h3>
+        <p>Каждый блок показывает не только проблему, но и вариант действия прямо сейчас.</p>
+      </article>
+      <article class="feature-card fade-item">
+        <span class="badge">Рост</span>
+        <h3>Переход из хаоса в систему</h3>
+        <p>Сервис помогает выстроить привычку видеть деньги, энергию и клиентов в одной логике.</p>
+      </article>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works">
+      <div class="section-heading fade-item">
+        <span class="badge">Как это работает</span>
+        <h2>От сигнала к действию за один цикл</h2>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card fade-item">
+          <span class="step-number">01</span>
+          <h3>Собираем сигнал</h3>
+          <p>Смотрим на состояние энергии, денег, клиентов и ИИ в одном фокусе.</p>
+        </article>
+        <article class="step-card fade-item">
+          <span class="step-number">02</span>
+          <h3>Показываем риск</h3>
+          <p>Каждый дашборд выделяет, где есть проблема и насколько она критична.</p>
+        </article>
+        <article class="step-card fade-item">
+          <span class="step-number">03</span>
+          <h3>Даём следующий шаг</h3>
+          <p>ИИ помощник превращает наблюдение в понятное действие и готовый план.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- VALUE -->
+    <section class="value-section">
+      <div class="section-heading fade-item">
+        <span class="badge">Почему это полезно</span>
+        <h2>Поддерживает предпринимателя в моменте выбора</h2>
+      </div>
+      <div class="value-grid">
+        <article class="value-card fade-item">
+          <h3>Меньше эмоционального шума</h3>
+          <p>Сервис помогает смотреть на ситуацию по фактам, а не по панике или усталости.</p>
+        </article>
+        <article class="value-card fade-item">
+          <h3>Быстрее принимать решения</h3>
+          <p>Ключевые сигналы уже структурированы, поэтому не нужно собирать их вручную.</p>
+        </article>
+        <article class="value-card fade-item">
+          <h3>Лучше управлять ростом</h3>
+          <p>Каждый блок помогает не только видеть проблему, но и понимать, куда направить усилия.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta fade-item">
+      <div class="final-cta-content">
+        <span class="badge">В итоге</span>
+        <h2>Предприниматель получает ясность, скорость и контроль</h2>
+        <p>Сервис помогает не просто видеть числа, а быстро понимать, что сейчас важно, где риск и что делать дальше.</p>
+        <a class="btn" href="ai-assistant.html">Перейти к ИИ помощнику →</a>
+      </div>
+    </section>
+
+    <!-- DASHBOARDS -->
+    <section id="dashboards">
+      <h2 class="section-title fade-item">Ключевые дашборды</h2>
+      <div class="dashboard-grid">
+        <article class="card fade-item">
+          <span class="badge">Блок 1</span>
+          <h3>🧠 Ментальная касса</h3>
+          <p>Контроль сна, фокуса и энергии для защиты качества решений основателя.</p>
+          <div class="metrics"><span>Сон</span><span>Фокус</span><span>Энергия</span></div>
+          <div class="actions">
+            <span class="link">Оперативный риск</span>
+            <button class="btn secondary" data-open-dashboard="mental">Погрузиться</button>
+          </div>
+        </article>
+
+        <article class="card fade-item">
+          <span class="badge">Блок 2</span>
+          <h3>⏰ Золотые часы</h3>
+          <p>Выручка и маржинальность по часам, чтобы переносить рекламный бюджет на самые сильные окна.</p>
+          <div class="metrics"><span>Часы</span><span>Чек</span><span>Конверсия</span></div>
+          <div class="actions">
+            <span class="link">Самое важное окно</span>
+            <button class="btn secondary" data-open-dashboard="hours">Погрузиться</button>
+          </div>
+        </article>
+
+        <article class="card fade-item">
+          <span class="badge">Блок 3</span>
+          <h3>🗑️ Мусорное ведро</h3>
+          <p>Скрытые расходы на плохих клиентов и их влияние на прибыль и репутацию.</p>
+          <div class="metrics"><span>Канал</span><span>Возвраты</span><span>Поддержка</span></div>
+          <div class="actions">
+            <span class="link">Реальная цена клиента</span>
+            <button class="btn secondary" data-open-dashboard="waste">Погрузиться</button>
+          </div>
+        </article>
+
+        <article class="card fade-item">
+          <span class="badge">Блок 4</span>
+          <h3>📣 Скорость сарафана</h3>
+          <p>Скорость, с которой клиенты начинают рекомендовать бизнес, прежде чем это станет поздно.</p>
+          <div class="metrics"><span>Рефералы</span><span>24 часа</span><span>7 дней</span></div>
+          <div class="actions">
+            <span class="link">Пути роста</span>
+            <button class="btn secondary" data-open-dashboard="word">Погрузиться</button>
+          </div>
+        </article>
+
+        <article class="card fade-item">
+          <span class="badge">Блок 5</span>
+          <h3>💰 Будущая касса</h3>
+          <p>Чёткий взгляд на остаток денег, ожидаемые поступления и запас времени до нуля.</p>
+          <div class="metrics"><span>Дни до нуля</span><span>Дебиторка</span><span>Прогноз</span></div>
+          <div class="actions">
+            <span class="link">Финансовая стабильность</span>
+            <button class="btn secondary" data-open-dashboard="cash">Погрузиться</button>
+          </div>
+        </article>
+
+        <article class="card fade-item">
+          <span class="badge">Бонус</span>
+          <h3>🤖 Эффективность ИИ</h3>
+          <p>Отслеживание доли задач, которые выполняются с нейросетями вместе с командой.</p>
+          <div class="metrics"><span>ИИ задачи</span><span>Тренд</span><span>Цель</span></div>
+          <div class="actions">
+            <span class="link">Переход на следующий уровень</span>
+            <button class="btn secondary" data-open-dashboard="ai">Погрузиться</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CHAT -->
+    <section class="panel chat-card fade-item">
+      <div class="chat-header">
+        <h3>🤖 ИИ помощник по всем дашбордам</h3>
+        <span class="online-status"><span class="dot"></span> Онлайн</span>
+      </div>
+      <p class="small">Можете задать вопрос по любому блоку: энергия, клиенты, касса, ИИ или реклама.</p>
+      <div class="messages"></div>
+      <form class="chat-form">
+        <div class="form-row">
+          <input type="text" data-chat-input placeholder="Например: проверь мою кассу" />
+          <button class="btn" type="submit">Отправить →</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <div class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 data-modal-title></h3>
+        <button class="close-btn" type="button" aria-label="Закрыть">×</button>
+      </div>
+      <div data-modal-body></div>
+    </div>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
