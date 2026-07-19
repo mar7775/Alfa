@@ -192,6 +192,11 @@ function scrollToBottom() {
   setTimeout(() => {
     container.scrollTop = container.scrollHeight;
   }, 50);
+
+  // Четверная страховка через 100мс
+  setTimeout(() => {
+    container.scrollTop = container.scrollHeight;
+  }, 100);
 }
 
 // ============================================================
@@ -232,7 +237,7 @@ if (chatMessages && chatForm && chatInput) {
     typeMessageWithScroll(first, initialMessage, 20);
   }
 
-  chatForm.addEventListener('submit', event => {
+  chatForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const value = chatInput.value.trim();
     if (!value) return;
@@ -242,7 +247,7 @@ if (chatMessages && chatForm && chatInput) {
     userMessage.className = 'message user';
     userMessage.textContent = value;
     chatMessages.appendChild(userMessage);
-    scrollToBottom(); // Сразу прокручиваем
+    scrollToBottom();
 
     const lower = value.toLowerCase();
     let answer = 'Я вижу, что вы хотите быстрое решение. Для старта рекомендую книгу «Краткая история времени» как ввод в системное мышление и ролик по управлению временем на YouTube: «Как не сгореть в бизнесе».';
@@ -259,15 +264,14 @@ if (chatMessages && chatForm && chatInput) {
       answer = 'Откройте блок «Эффективность искусственного интеллекта». Рекомендую книгу «Искусственный интеллект для предпринимателя» и видео «Автоматизация рутины с ИИ».';
     }
 
-    // ===== СООБЩЕНИЕ ИИ — С ЭФФЕКТОМ ПЕЧАТИ И ПРОКРУТКОЙ =====
+    // ===== СООБЩЕНИЕ ИИ — С ЭФФЕКТОМ ПЕЧАТИ =====
     const botMessage = document.createElement('div');
     botMessage.className = 'message';
     chatMessages.appendChild(botMessage);
     typeMessageWithScroll(botMessage, answer, 15);
 
     chatInput.value = '';
-    // Дополнительная прокрутка после очистки поля
-    setTimeout(scrollToBottom, 10);
+    scrollToBottom();
   });
 }
 
@@ -469,7 +473,7 @@ if (assistantMessages && assistantForm && assistantInput) {
     typeMessageWithScroll(botMessage, answer, 15);
 
     assistantInput.value = '';
-    setTimeout(scrollToBottom, 10);
+    scrollToBottom();
   });
 }
 
