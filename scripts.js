@@ -107,7 +107,7 @@ const dashboardData = {
 };
 
 // ============================================================
-//   ANIMATION: СЧЁТЧИК ЦИФР (исправлен — % не пропадает)
+//   ANIMATION: СЧЁТЧИК ЦИФР
 // ============================================================
 function animateCounters() {
   document.querySelectorAll('.hero-stat[data-count]').forEach(stat => {
@@ -127,6 +127,7 @@ function animateCounters() {
     }, 30);
   });
 }
+
 // ============================================================
 //   ANIMATION: FADE-IN ПРИ СКРОЛЛЕ
 // ============================================================
@@ -492,22 +493,34 @@ if (radarCanvas) {
 }
 
 // ============================================================
+//   МАСКОТ: ИНТЕРАКТИВНОСТЬ (ВЫНЕСЕН НАРУЖУ)
+// ============================================================
+const robotWrapper = document.querySelector('.robot-animation-wrapper');
+
+if (robotWrapper) {
+  const robotImage = robotWrapper.querySelector('.robot-image');
+  const robotFace = robotWrapper.querySelector('.robot-mask-face');
+
+  robotWrapper.addEventListener('mouseover', () => {
+    if (robotImage) robotImage.style.animationDuration = '2s';
+    if (robotFace) robotFace.style.animationDuration = '1.2s';
+  });
+
+  robotWrapper.addEventListener('mouseout', () => {
+    if (robotImage) robotImage.style.animationDuration = '4s';
+    if (robotFace) robotFace.style.animationDuration = '2.5s';
+  });
+}
+
+// ============================================================
 //   ЗАПУСК ВСЕХ АНИМАЦИЙ
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
-  // Счётчики с задержкой, чтобы они появились после загрузки
   setTimeout(animateCounters, 400);
-
-  // Fade-in при скролле
   handleFadeItems();
-
-  // Header при скролле
   handleHeaderScroll();
-
-  // Гамбургер
   handleHamburger();
 
-  // Обновляем видимые элементы при загрузке
   document.querySelectorAll('.fade-item').forEach(item => {
     const rect = item.getBoundingClientRect();
     if (rect.top < window.innerHeight) {
@@ -516,7 +529,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Если есть detail-title — значит мы на dashboard.html
+// ============================================================
+//   DASHBOARD.HTML (если есть)
+// ============================================================
 if (document.getElementById('detail-title')) {
   const params = new URLSearchParams(window.location.search);
   const key = params.get('dashboard');
@@ -562,22 +577,4 @@ if (document.getElementById('detail-title')) {
       `;
     }
   }
- // ============================================================
-//   МАСКОТ: ИНТЕРАКТИВНОСТЬ
-// ============================================================
-const robotWrapper = document.querySelector('.robot-animation-wrapper');
-
-if (robotWrapper) {
-  const robotImage = robotWrapper.querySelector('.robot-image');
-  const robotFace = robotWrapper.querySelector('.robot-mask-face');
-
-  robotWrapper.addEventListener('mouseover', () => {
-    if (robotImage) robotImage.style.animationDuration = '2s';
-    if (robotFace) robotFace.style.animationDuration = '1.2s';
-  });
-
-  robotWrapper.addEventListener('mouseout', () => {
-    if (robotImage) robotImage.style.animationDuration = '4s';
-    if (robotFace) robotFace.style.animationDuration = '2.5s';
-  });
 }
