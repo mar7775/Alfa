@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ИИ помощник — Панель управления основателя</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <div class="container navbar">
+      <div class="brand">✦ Панель управления основателя</div>
+      <nav class="nav-links">
+        <a href="index.html">Главная</a>
+        <a href="ai-assistant.html" class="active">ИИ помощник</a>
+      </nav>
+      <button class="hamburger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container ai-assistant-page">
+    <div class="ai-layout">
+      <!-- ===== ЛЕВАЯ КОЛОНКА: РАДАР + ЗАМЕТКИ ===== -->
+      <div class="ai-left-panel">
+        <!-- Радар -->
+        <div class="ai-radar-card">
+          <h3>📊 Баланс дашбордов</h3>
+          <p class="small">Оценка состояния по 6 ключевым направлениям</p>
+          <div class="radar-container" data-radar></div>
+        </div>
+
+        <!-- Заметки -->
+        <div class="ai-notes-card">
+          <h3>📝 Заметки и рекомендации</h3>
+          <p class="small">Сохраняйте идеи и рекомендации от ИИ</p>
+          <textarea data-note-area placeholder="Введите заметку..." rows="4"></textarea>
+          <button class="btn" data-save-note>💾 Сохранить заметку</button>
+        </div>
+      </div>
+
+      <!-- ===== ПРАВАЯ КОЛОНКА: РАСШИРЕННЫЙ ЧАТ ===== -->
+      <div class="ai-right-panel">
+        <div class="panel chat-card">
+          <div class="chat-header">
+            <div class="chat-header-left">
+              <div class="chat-mascot">
+                <div class="robot-animation-wrapper">
+                  <img src="alfa_mascot_transparent.png" alt="Маскот" class="robot-image" />
+                </div>
+              </div>
+              <div class="chat-header-info">
+                <h3>🤖 ИИ помощник</h3>
+                <span class="online-status"><span class="dot"></span> Онлайн</span>
+              </div>
+            </div>
+          </div>
+          <p class="small">Задайте вопрос по любому дашборду: энергия, касса, клиенты, реклама, ИИ или рекомендации.</p>
+          <div class="messages" data-assistant-messages></div>
+          <form class="chat-form" data-assistant-form>
+            <div class="form-row">
+              <input type="text" data-assistant-input placeholder="Например: как улучшить ментальную кассу?" />
+              <button class="btn" type="submit">Отправить →</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
