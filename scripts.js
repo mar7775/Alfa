@@ -183,7 +183,20 @@ function scrollToBottom() {
 }
 
 // ============================================================
-//   ЧАТ: ЭФФЕКТ ПЕЧАТИ (РАБОТАЕТ НА ВСЕХ УСТРОЙСТВАХ)
+//   ЧАТ: АКЦЕНТ НА СООБЩЕНИИ ПОЛЬЗОВАТЕЛЯ
+// ============================================================
+function highlightMessage(element) {
+  // Добавляем класс для подсветки
+  element.classList.add('highlight');
+  
+  // Убираем подсветку через 1.5 секунды
+  setTimeout(() => {
+    element.classList.remove('highlight');
+  }, 1500);
+}
+
+// ============================================================
+//   ЧАТ: ЭФФЕКТ ПЕЧАТИ
 // ============================================================
 function typeMessageWithScroll(element, text, speed = 25, callback) {
   let index = 0;
@@ -201,7 +214,6 @@ function typeMessageWithScroll(element, text, speed = 25, callback) {
     }
   }
   
-  // Небольшая задержка перед началом печати
   setTimeout(typeNext, 10);
 }
 
@@ -232,7 +244,12 @@ if (chatMessages && chatForm && chatInput) {
     userMessage.className = 'message user';
     userMessage.textContent = value;
     chatMessages.appendChild(userMessage);
+    
+    // МГНОВЕННАЯ ПРОКРУТКА К СООБЩЕНИЮ
     scrollToBottom();
+    
+    // АКЦЕНТ НА СООБЩЕНИИ (подсветка + плавный переход)
+    highlightMessage(userMessage);
 
     const lower = value.toLowerCase();
     let answer = 'Я вижу, что вы хотите быстрое решение. Для старта рекомендую книгу «Краткая история времени» как ввод в системное мышление и ролик по управлению временем на YouTube: «Как не сгореть в бизнесе».';
@@ -441,6 +458,7 @@ if (assistantMessages && assistantForm && assistantInput) {
     userMessage.textContent = value;
     assistantMessages.appendChild(userMessage);
     scrollToBottom();
+    highlightMessage(userMessage);
 
     const lower = value.toLowerCase();
     let answer = 'Рекомендую начать с книги «Сделано в Америке» и видео «Как продавать без давления». Вернитесь позже и сохраните заметку о том, что вы решили попробовать.';
