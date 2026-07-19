@@ -769,15 +769,15 @@ header.scrolled {
 }
 
 /* ============================================================
-   МАСКОТ (АНИМАЦИЯ)
+   МАСКОТ (АНИМАЦИЯ) — УВЕЛИЧЕННЫЙ ДО 80px
    ============================================================ */
 .robot-animation-wrapper {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 56px;
-  height: 56px;
+  width: 80px;
+  height: 80px;
   overflow: hidden;
   transition: transform 0.3s ease;
   flex-shrink: 0;
@@ -1250,7 +1250,7 @@ header.scrolled {
     font-size: 1.1rem;
   }
 
-  /* Чат с маскотом на мобильных */
+  /* Чат с маскотом на мобильных — увеличенный */
   .chat-header {
     flex-direction: column;
     align-items: stretch;
@@ -1266,8 +1266,8 @@ header.scrolled {
   }
 
   .robot-animation-wrapper {
-    width: 44px;
-    height: 44px;
+    width: 60px;
+    height: 60px;
   }
 
   .chat-form .form-row {
