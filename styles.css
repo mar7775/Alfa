@@ -634,7 +634,7 @@ header.scrolled {
 }
 
 /* ============================================================
-   CHAT С МАСКОТОМ (СЛЕВА НА ВСЕХ УСТРОЙСТВАХ)
+   CHAT С МАСКОТОМ
    ============================================================ */
 .panel {
   background: var(--bg-card);
@@ -717,6 +717,20 @@ header.scrolled {
   scroll-behavior: smooth;
 }
 
+.chat-card .messages::-webkit-scrollbar {
+  width: 4px;
+}
+
+.chat-card .messages::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+}
+
+.chat-card .messages::-webkit-scrollbar-thumb {
+  background: rgba(83, 214, 194, 0.3);
+  border-radius: 4px;
+}
+
 .message {
   background: rgba(255, 255, 255, 0.05);
   padding: 12px 20px;
@@ -774,7 +788,7 @@ header.scrolled {
 }
 
 /* ============================================================
-   МАСКОТ (АНИМАЦИЯ) — 200px, БЕЗ МЕРЦАНИЯ
+   МАСКОТ (АНИМАЦИЯ) — 200px
    ============================================================ */
 .robot-animation-wrapper {
   position: relative;
@@ -1138,7 +1152,7 @@ header.scrolled {
 }
 
 /* ============================================================
-   ADAPTIVE — МОБИЛЬНЫЕ (маскот СЛЕВА)
+   ADAPTIVE — МОБИЛЬНЫЕ
    ============================================================ */
 @media (max-width: 768px) {
   .container {
@@ -1230,11 +1244,8 @@ header.scrolled {
     font-size: 1.1rem;
   }
 
-  /* МАСКОТ СЛЕВА НА МОБИЛЬНЫХ */
+  /* ===== МАСКОТ НА МОБИЛЬНЫХ — ОРГАНИЧНО ===== */
   .chat-header-left {
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
     gap: 12px;
     width: 100%;
   }
@@ -1244,13 +1255,28 @@ header.scrolled {
   }
 
   .chat-mascot {
-    order: 0;
     flex-shrink: 0;
+    order: 0;
   }
 
   .robot-animation-wrapper {
-    width: 80px;
-    height: 80px;
+    width: 56px;
+    height: 56px;
+  }
+
+  .robot-image {
+    animation-duration: 3s;
+  }
+
+  /* ===== ЧАТ НА МОБИЛЬНЫХ ===== */
+  .chat-card .messages {
+    max-height: 150px;
+  }
+
+  .message {
+    max-width: 90%;
+    font-size: 0.85rem;
+    padding: 10px 14px;
   }
 
   .chat-form .form-row {
@@ -1271,16 +1297,6 @@ header.scrolled {
     font-size: 1rem;
     min-height: 52px;
     white-space: nowrap;
-  }
-
-  .message {
-    max-width: 92%;
-    font-size: 0.9rem;
-    padding: 10px 14px;
-  }
-
-  .chat-card .messages {
-    max-height: 180px;
   }
 }
 
