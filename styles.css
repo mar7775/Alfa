@@ -1321,3 +1321,16 @@ header.scrolled {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+/* ============================================================
+   АКЦЕНТ НА СООБЩЕНИИ ПОЛЬЗОВАТЕЛЯ
+   ============================================================ */
+.message.user.highlight {
+  background: #66e0cc;
+  box-shadow: 0 0 30px rgba(83, 214, 194, 0.6);
+  transform: scale(1.02);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.message.user {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
