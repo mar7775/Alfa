@@ -190,22 +190,19 @@ function typeMessage(element, text, speed = 25) {
 }
 
 // ============================================================
-//   ЧАТ: ПЛАВНАЯ ПРОКРУТКА ВНИЗ (ПОСТРОЧНО)
+//   ЧАТ: ПРОКРУТКА ВНИЗ (ГАРАНТИРОВАННАЯ)
 // ============================================================
-function scrollToBottom(smooth = true) {
+function scrollToBottom() {
   const container = document.querySelector('.messages');
   if (!container) return;
-
-  const targetScroll = container.scrollHeight - container.clientHeight;
   
-  if (smooth) {
-    container.scrollTo({
-      top: targetScroll,
-      behavior: 'smooth'
-    });
-  } else {
-    container.scrollTop = targetScroll;
-  }
+  // Принудительная прокрутка до самого низа
+  container.scrollTop = container.scrollHeight;
+  
+  // Дополнительная прокрутка после перерисовки
+  requestAnimationFrame(() => {
+    container.scrollTop = container.scrollHeight;
+  });
 }
 
 // ============================================================
@@ -223,8 +220,8 @@ if (chatMessages && chatForm && chatInput) {
     first.className = 'message';
     chatMessages.appendChild(first);
     typeMessage(first, initialMessage, 20);
-    setTimeout(() => scrollToBottom(true), 50);
-    setTimeout(() => scrollToBottom(true), 200);
+    setTimeout(scrollToBottom, 50);
+    setTimeout(scrollToBottom, 300);
   }
 
   chatForm.addEventListener('submit', event => {
@@ -232,11 +229,12 @@ if (chatMessages && chatForm && chatInput) {
     const value = chatInput.value.trim();
     if (!value) return;
 
+    // Сообщение пользователя
     const userMessage = document.createElement('div');
     userMessage.className = 'message user';
     userMessage.textContent = value;
     chatMessages.appendChild(userMessage);
-    scrollToBottom(true);
+    scrollToBottom();
 
     const lower = value.toLowerCase();
     let answer = 'Я вижу, что вы хотите быстрое решение. Для старта рекомендую книгу «Краткая история времени» как ввод в системное мышление и ролик по управлению временем на YouTube: «Как не сгореть в бизнесе».';
@@ -253,15 +251,19 @@ if (chatMessages && chatForm && chatInput) {
       answer = 'Откройте блок «Эффективность искусственного интеллекта». Рекомендую книгу «Искусственный интеллект для предпринимателя» и видео «Автоматизация рутины с ИИ».';
     }
 
+    // Ответ бота с эффектом печати
     const botMessage = document.createElement('div');
     botMessage.className = 'message';
     chatMessages.appendChild(botMessage);
+    
+    // Запускаем печать и прокрутку
     typeMessage(botMessage, answer, 15);
     
-    // Несколько прокруток для плавности
-    setTimeout(() => scrollToBottom(true), 50);
-    setTimeout(() => scrollToBottom(true), 150);
-    setTimeout(() => scrollToBottom(true), 300);
+    // Множественные прокрутки для гарантии
+    setTimeout(scrollToBottom, 50);
+    setTimeout(scrollToBottom, 150);
+    setTimeout(scrollToBottom, 300);
+    setTimeout(scrollToBottom, 500);
 
     chatInput.value = '';
   });
