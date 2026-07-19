@@ -1216,34 +1216,31 @@ header.scrolled {
   }
 }
 /* ============================================================
-   МАСКОТ
+   ЧАТ С МАСКОТОМ
    ============================================================ */
-.mascot-section {
-  margin: 40px 0 20px;
-  padding: 40px 0;
-  border-top: 1px solid var(--border-subtle);
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 4px;
 }
 
-.mascot-container {
+.chat-header-left {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 48px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 
-.mascot-text {
-  max-width: 400px;
+.chat-header-left h3 {
+  font-size: 1.2rem;
+  margin: 0;
 }
 
-.mascot-text h3 {
-  font-size: 1.6rem;
-  margin-bottom: 8px;
-}
-
-.mascot-text p {
-  color: var(--text-secondary);
-  font-size: 1rem;
+.chat-mascot {
+  flex-shrink: 0;
 }
 
 /* ===== АНИМАЦИЯ МАСКОТА ===== */
@@ -1252,8 +1249,8 @@ header.scrolled {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  height: auto;
+  width: 56px;
+  height: 56px;
   overflow: hidden;
   transition: transform 0.3s ease;
   flex-shrink: 0;
@@ -1280,7 +1277,7 @@ header.scrolled {
 }
 
 .robot-animation-wrapper:hover .robot-image {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .robot-animation-wrapper:hover .robot-image {
@@ -1311,20 +1308,25 @@ header.scrolled {
   }
 }
 
-/* ===== АДАПТИВ ДЛЯ МАСКОТА ===== */
+/* ===== АДАПТИВ ===== */
 @media (max-width: 768px) {
-  .mascot-container {
+  .chat-header {
     flex-direction: column;
-    text-align: center;
-    gap: 24px;
+    align-items: stretch;
+  }
+
+  .chat-header-left {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .chat-mascot {
+    align-self: flex-end;
   }
 
   .robot-animation-wrapper {
-    width: 160px;
-  }
-
-  .mascot-text h3 {
-    font-size: 1.3rem;
+    width: 44px;
+    height: 44px;
   }
 }
 /* ============================================================
