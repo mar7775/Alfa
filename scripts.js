@@ -190,12 +190,21 @@ function typeMessage(element, text, speed = 25) {
 }
 
 // ============================================================
-//   ЧАТ: АВТОМАТИЧЕСКАЯ ПРОКРУТКА ВНИЗ
+//   ЧАТ: ПЛАВНАЯ ПРОКРУТКА ВНИЗ (ПОСТРОЧНО)
 // ============================================================
-function scrollToBottom() {
-  const messagesContainer = document.querySelector('.messages');
-  if (messagesContainer) {
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+function scrollToBottom(smooth = true) {
+  const container = document.querySelector('.messages');
+  if (!container) return;
+
+  const targetScroll = container.scrollHeight - container.clientHeight;
+  
+  if (smooth) {
+    container.scrollTo({
+      top: targetScroll,
+      behavior: 'smooth'
+    });
+  } else {
+    container.scrollTop = targetScroll;
   }
 }
 
@@ -214,8 +223,8 @@ if (chatMessages && chatForm && chatInput) {
     first.className = 'message';
     chatMessages.appendChild(first);
     typeMessage(first, initialMessage, 20);
-    // Прокручиваем вниз после первого сообщения
-    setTimeout(scrollToBottom, 100);
+    setTimeout(() => scrollToBottom(true), 50);
+    setTimeout(() => scrollToBottom(true), 200);
   }
 
   chatForm.addEventListener('submit', event => {
@@ -227,7 +236,7 @@ if (chatMessages && chatForm && chatInput) {
     userMessage.className = 'message user';
     userMessage.textContent = value;
     chatMessages.appendChild(userMessage);
-    scrollToBottom();
+    scrollToBottom(true);
 
     const lower = value.toLowerCase();
     let answer = 'Я вижу, что вы хотите быстрое решение. Для старта рекомендую книгу «Краткая история времени» как ввод в системное мышление и ролик по управлению временем на YouTube: «Как не сгореть в бизнесе».';
@@ -249,8 +258,10 @@ if (chatMessages && chatForm && chatInput) {
     chatMessages.appendChild(botMessage);
     typeMessage(botMessage, answer, 15);
     
-    // Прокручиваем вниз после завершения печати
-    setTimeout(scrollToBottom, 100);
+    // Несколько прокруток для плавности
+    setTimeout(() => scrollToBottom(true), 50);
+    setTimeout(() => scrollToBottom(true), 150);
+    setTimeout(() => scrollToBottom(true), 300);
 
     chatInput.value = '';
   });
