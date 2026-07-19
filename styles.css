@@ -1305,23 +1305,6 @@ header.scrolled {
 }
 
 /* ============================================================
-   БОЛЬШИЕ ЭКРАНЫ
-   ============================================================ */
-@media (min-width: 1400px) {
-  .container {
-    max-width: 1440px;
-    padding: 0 48px;
-  }
-
-  .hero-card h1 {
-    font-size: 3.8rem;
-  }
-
-  .dashboard-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-/* ============================================================
    АКЦЕНТ НА СООБЩЕНИИ ПОЛЬЗОВАТЕЛЯ
    ============================================================ */
 .message.user.highlight {
@@ -1334,6 +1317,7 @@ header.scrolled {
 .message.user {
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 /* ============================================================
    AI ASSISTANT PAGE — СПЕЦИАЛЬНАЯ СТРАНИЦА
    ============================================================ */
@@ -1342,145 +1326,16 @@ header.scrolled {
   padding-bottom: 40px;
 }
 
-.ai-layout {
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 28px;
-  align-items: start;
-}
-
-/* ===== ЛЕВАЯ ПАНЕЛЬ ===== */
-.ai-left-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.ai-radar-card {
-  background: var(--bg-card);
-  padding: 24px 20px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
-  text-align: center;
-}
-
-.ai-radar-card h3 {
-  font-size: 1.1rem;
-  margin-bottom: 2px;
-}
-
-.ai-radar-card .small {
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  margin-bottom: 12px;
-}
-
-.radar-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.radar-container svg {
-  max-width: 100%;
-  height: auto;
-}
-
-.ai-notes-card {
-  background: var(--bg-card);
-  padding: 24px 20px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
-}
-
-.ai-notes-card h3 {
-  font-size: 1.1rem;
-  margin-bottom: 2px;
-}
-
-.ai-notes-card .small {
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  margin-bottom: 12px;
-}
-
-.ai-notes-card textarea {
-  width: 100%;
-  padding: 12px 16px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-subtle);
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--text-primary);
-  font-family: inherit;
-  font-size: 0.95rem;
-  resize: vertical;
-  transition: border-color var(--transition);
-  margin-bottom: 12px;
-}
-
-.ai-notes-card textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-}
-
-.ai-notes-card .btn {
-  width: 100%;
-  justify-content: center;
-}
-
-/* ===== ПРАВАЯ ПАНЕЛЬ ===== */
-.ai-right-panel {
-  min-height: 500px;
-}
-
-.ai-right-panel .panel {
-  margin: 0;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.ai-right-panel .chat-card .messages {
-  max-height: 350px;
-  flex: 1;
-}
-
-.ai-right-panel .chat-card .messages {
-  max-height: 320px;
-  min-height: 200px;
-}
-
-/* ===== АДАПТИВ ===== */
-@media (max-width: 992px) {
-  .ai-layout {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .ai-left-panel {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-
-  .ai-right-panel .chat-card .messages {
-    max-height: 250px;
-  }
-}
-/* ============================================================
-   AI ASSISTANT PAGE — СПЕЦИАЛЬНАЯ СТРАНИЦА
-   ============================================================ */
-.ai-assistant-page {
-  padding-top: 20px;
-  padding-bottom: 40px;
-}
-
-/* ===== МОБИЛЬНЫЕ ВКЛАДКИ ===== */
+/* ===== МОБИЛЬНЫЕ ВКЛАДКИ (ВСЕГДА НАВЕРХУ) ===== */
 .ai-mobile-tabs {
   display: none;
   gap: 8px;
   margin-bottom: 20px;
+  position: sticky;
+  top: 80px;
+  z-index: 50;
+  background: var(--bg-primary);
+  padding: 8px 0;
 }
 
 .ai-tab-btn {
@@ -1510,7 +1365,7 @@ header.scrolled {
 
 .ai-layout {
   display: grid;
-  grid-template-columns: 340px 1fr;
+  grid-template-columns: 380px 1fr;
   gap: 28px;
   align-items: start;
 }
@@ -1553,7 +1408,7 @@ header.scrolled {
   height: auto;
 }
 
-/* ===== ЗАМЕТКИ (БЕЗ ИКОНОК) ===== */
+/* ===== ЗАМЕТКИ ===== */
 .ai-notes-card {
   background: var(--bg-card);
   padding: 24px 20px;
@@ -1573,13 +1428,11 @@ header.scrolled {
 }
 
 .notes-input-row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 
 .notes-input-row input {
-  flex: 1;
+  width: 100%;
   padding: 10px 14px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-subtle);
@@ -1595,10 +1448,15 @@ header.scrolled {
   border-color: var(--accent);
 }
 
-.notes-input-row .btn {
+.notes-btn-row {
+  margin-bottom: 14px;
+}
+
+.notes-btn-row .btn {
+  width: 100%;
+  justify-content: center;
   padding: 10px 20px;
   font-size: 0.9rem;
-  white-space: nowrap;
 }
 
 .notes-list {
@@ -1619,6 +1477,7 @@ header.scrolled {
   border: 1px solid var(--border-subtle);
   transition: all var(--transition);
   gap: 10px;
+  position: relative;
 }
 
 .note-item:hover {
@@ -1635,8 +1494,14 @@ header.scrolled {
 
 .note-item .note-actions {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   flex-shrink: 0;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.note-item:hover .note-actions {
+  opacity: 1;
 }
 
 .note-item .note-actions button {
@@ -1644,10 +1509,10 @@ header.scrolled {
   border: none;
   color: var(--text-muted);
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 4px 6px;
   border-radius: 4px;
   transition: all var(--transition);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 500;
 }
 
@@ -1699,6 +1564,23 @@ header.scrolled {
   display: block;
 }
 
+.note-item.editing .edit-btn,
+.note-item.editing .delete-btn {
+  display: none;
+}
+
+/* ===== МОБИЛЬНАЯ ВЕРСИЯ: КНОПКИ ВСЕГДА ВИДНЫ ===== */
+@media (max-width: 768px) {
+  .note-item .note-actions {
+    opacity: 1;
+  }
+  
+  .note-item .note-actions button {
+    font-size: 0.7rem;
+    padding: 4px 6px;
+  }
+}
+
 .notes-list::-webkit-scrollbar {
   width: 3px;
 }
@@ -1715,7 +1597,7 @@ header.scrolled {
 
 /* ===== ПРАВАЯ ПАНЕЛЬ ===== */
 .ai-right-panel {
-  min-height: 500px;
+  min-height: 550px;
 }
 
 .ai-right-panel .panel {
@@ -1726,8 +1608,8 @@ header.scrolled {
 }
 
 .ai-right-panel .chat-card .messages {
-  max-height: 400px;
-  min-height: 250px;
+  max-height: 420px;
+  min-height: 280px;
 }
 
 /* ===== УВЕЛИЧЕННЫЙ МАСКОТ ===== */
@@ -1740,6 +1622,11 @@ header.scrolled {
 @media (max-width: 992px) {
   .ai-mobile-tabs {
     display: flex;
+    position: sticky;
+    top: 72px;
+    background: var(--bg-primary);
+    padding: 8px 0;
+    z-index: 50;
   }
 
   .ai-layout {
@@ -1768,8 +1655,8 @@ header.scrolled {
   }
 
   .ai-right-panel .chat-card .messages {
-    max-height: 300px;
-    min-height: 180px;
+    max-height: 320px;
+    min-height: 200px;
   }
 
   .ai-right-panel .robot-animation-wrapper {
@@ -1778,28 +1665,23 @@ header.scrolled {
   }
 
   .notes-list {
-    max-height: 150px;
+    max-height: 160px;
   }
 }
 
 @media (max-width: 600px) {
+  .ai-mobile-tabs {
+    top: 68px;
+  }
+
   .ai-right-panel .chat-card .messages {
-    max-height: 250px;
-    min-height: 140px;
+    max-height: 280px;
+    min-height: 160px;
   }
 
   .ai-right-panel .robot-animation-wrapper {
     width: 60px;
     height: 60px;
-  }
-
-  .notes-input-row {
-    flex-direction: column;
-  }
-
-  .notes-input-row .btn {
-    width: 100%;
-    justify-content: center;
   }
 
   .ai-radar-card {
@@ -1812,15 +1694,23 @@ header.scrolled {
 
   .note-item {
     flex-wrap: wrap;
+    padding: 8px 12px;
   }
 
   .note-item .note-text {
     width: 100%;
+    font-size: 0.85rem;
   }
 
   .note-item .note-actions {
     width: 100%;
     justify-content: flex-end;
+    opacity: 1;
+  }
+
+  .note-item .note-actions button {
+    font-size: 0.7rem;
+    padding: 4px 8px;
   }
 }
 
@@ -1832,29 +1722,21 @@ header.scrolled {
 .nav-links a.active::after {
   width: 100%;
 }
-@media (max-width: 600px) {
-  .ai-left-panel {
-    grid-template-columns: 1fr;
+
+/* ============================================================
+   БОЛЬШИЕ ЭКРАНЫ
+   ============================================================ */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1440px;
+    padding: 0 48px;
   }
 
-  .ai-right-panel .chat-card .messages {
-    max-height: 200px;
+  .hero-card h1 {
+    font-size: 3.8rem;
   }
 
-  .ai-radar-card {
-    padding: 16px;
+  .dashboard-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
-
-  .ai-notes-card {
-    padding: 16px;
-  }
-}
-
-/* ===== АКТИВНАЯ ССЫЛКА В ШАПКЕ ===== */
-.nav-links a.active {
-  color: var(--text-primary);
-}
-
-.nav-links a.active::after {
-  width: 100%;
 }
