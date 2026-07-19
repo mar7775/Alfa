@@ -1152,7 +1152,7 @@ header.scrolled {
 }
 
 /* ============================================================
-   ADAPTIVE — МОБИЛЬНЫЕ (МАСКОТ СЛЕВА, КРУПНЕЕ)
+   ADAPTIVE — МОБИЛЬНЫЕ (МАСКОТ 90px)
    ============================================================ */
 @media (max-width: 768px) {
   .container {
@@ -1244,7 +1244,7 @@ header.scrolled {
     font-size: 1.1rem;
   }
 
-  /* ===== МАСКОТ СЛЕВА, УВЕЛИЧЕННЫЙ, ОРГАНИЧНО ===== */
+  /* ===== МАСКОТ СЛЕВА, УВЕЛИЧЕННЫЙ ДО 90px ===== */
   .chat-header-left {
     gap: 14px;
     width: 100%;
@@ -1263,8 +1263,8 @@ header.scrolled {
   }
 
   .robot-animation-wrapper {
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
   }
 
   .robot-image {
