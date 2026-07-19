@@ -180,20 +180,16 @@ function scrollToBottom() {
   const container = document.querySelector('.messages');
   if (!container) return;
   
-  // 1. Немедленная прокрутка
   container.scrollTop = container.scrollHeight;
   
-  // 2. Прокрутка после отрисовки (самый надёжный способ)
   requestAnimationFrame(() => {
     container.scrollTop = container.scrollHeight;
   });
   
-  // 3. Прокрутка с задержкой для мобильных устройств
   setTimeout(() => {
     container.scrollTop = container.scrollHeight;
   }, 50);
   
-  // 4. Максимальная страховка для медленных устройств
   setTimeout(() => {
     container.scrollTop = container.scrollHeight;
   }, 150);
@@ -220,16 +216,13 @@ function typeMessageWithScroll(element, text, speed = 25) {
     if (index < text.length) {
       element.textContent += text.charAt(index);
       index++;
-      // Прокручиваем после каждого символа
       scrollToBottom();
       setTimeout(typeNext, speed);
     } else {
-      // Финальная прокрутка после завершения
       scrollToBottom();
     }
   }
   
-  // Небольшая задержка перед началом печати
   setTimeout(typeNext, 10);
 }
 
@@ -255,27 +248,20 @@ if (chatMessages && chatForm && chatInput) {
     const value = chatInput.value.trim();
     if (!value) return;
 
-    // ===== 1. СООБЩЕНИЕ ПОЛЬЗОВАТЕЛЯ — МГНОВЕННО =====
     const userMessage = document.createElement('div');
     userMessage.className = 'message user';
     userMessage.textContent = value;
     chatMessages.appendChild(userMessage);
     
-    // ===== 2. ПРОКРУТКА С ГАРАНТИЕЙ =====
-    // Сразу
     scrollToBottom();
-    // Через RAF (после отрисовки)
     requestAnimationFrame(() => {
       scrollToBottom();
     });
-    // Через таймеры для мобильных
     setTimeout(scrollToBottom, 50);
     setTimeout(scrollToBottom, 150);
     
-    // ===== 3. АКЦЕНТ НА СООБЩЕНИИ =====
     highlightMessage(userMessage);
 
-    // ===== 4. ОТВЕТ ИИ =====
     const lower = value.toLowerCase();
     let answer = 'Я вижу, что вы хотите быстрое решение. Для старта рекомендую книгу «Краткая история времени» как ввод в системное мышление и ролик по управлению временем на YouTube: «Как не сгореть в бизнесе».';
 
@@ -291,12 +277,10 @@ if (chatMessages && chatForm && chatInput) {
       answer = 'Откройте блок «Эффективность искусственного интеллекта». Рекомендую книгу «Искусственный интеллект для предпринимателя» и видео «Автоматизация рутины с ИИ».';
     }
 
-    // ===== 5. СООБЩЕНИЕ ИИ — С ЭФФЕКТОМ ПЕЧАТИ =====
     const botMessage = document.createElement('div');
     botMessage.className = 'message';
     chatMessages.appendChild(botMessage);
     
-    // Небольшая задержка перед печатью
     setTimeout(() => {
       typeMessageWithScroll(botMessage, answer, 15);
     }, 50);
@@ -640,77 +624,148 @@ if (document.getElementById('detail-title')) {
       `;
     }
   }
-  // ============================================================
-//   AI ASSISTANT PAGE — ДОПОЛНИТЕЛЬНАЯ ЛОГИКА
+}
+
 // ============================================================
-if (document.querySelector('[data-assistant-messages]')) {
-  const assistantMessages = document.querySelector('[data-assistant-messages]');
-  const assistantForm = document.querySelector('[data-assistant-form]');
-  const assistantInput = document.querySelector('[data-assistant-input]');
+//   AI ASSISTANT PAGE — РАДАР С ИНТЕРАКТИВНОСТЬЮ
+// ============================================================
+function initRadar() {
+  const radarContainer = document.querySelector('[data-radar]');
+  if (!radarContainer) return;
 
-  if (assistantMessages && assistantForm && assistantInput) {
-    const initialAssistant = 'Здравствуйте! Я ваш персональный ИИ-помощник. Задайте вопрос по любому дашборду: энергия, касса, клиенты, реклама, эффективность ИИ или попросите рекомендацию.';
+  const values = [78, 71, 66, 74, 81, 69];
+  const labels = ['Энергия', 'Выручка', 'Клиенты', 'Рекомендации', 'Касса', 'ИИ'];
+  const size = 360;
+  const center = size / 2;
+  const radius = 130;
 
-    if (!assistantMessages.querySelector('.message')) {
-      const first = document.createElement('div');
-      first.className = 'message';
-      assistantMessages.appendChild(first);
-      typeMessageWithScroll(first, initialAssistant, 20);
-    }
+  let svg = `<svg viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">`;
+  
+  svg += `<circle cx="${center}" cy="${center}" r="${radius}" fill="none" stroke="rgba(255,255,255,0.06)" />`;
+  svg += `<circle cx="${center}" cy="${center}" r="${radius * 0.66}" fill="none" stroke="rgba(255,255,255,0.06)" />`;
+  svg += `<circle cx="${center}" cy="${center}" r="${radius * 0.33}" fill="none" stroke="rgba(255,255,255,0.06)" />`;
+  
+  labels.forEach((label, index) => {
+    const angle = (Math.PI * 2 * index) / labels.length - Math.PI / 2;
+    const x = center + Math.cos(angle) * (radius + 5);
+    const y = center + Math.sin(angle) * (radius + 5);
+    svg += `<line x1="${center}" y1="${center}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,0.06)" stroke-width="1" />`;
+  });
 
-    assistantForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-      const value = assistantInput.value.trim();
-      if (!value) return;
+  labels.forEach((label, index) => {
+    const angle = (Math.PI * 2 * index) / labels.length - Math.PI / 2;
+    const x = center + Math.cos(angle) * (radius + 22);
+    const y = center + Math.sin(angle) * (radius + 22);
+    svg += `<text x="${x}" y="${y}" fill="#8da0ba" font-size="12" text-anchor="middle" dominant-baseline="middle">${label}</text>`;
+  });
 
-      const userMessage = document.createElement('div');
-      userMessage.className = 'message user';
-      userMessage.textContent = value;
-      assistantMessages.appendChild(userMessage);
-      scrollToBottom();
-      highlightMessage(userMessage);
+  const points = values.map((value, index) => {
+    const angle = (Math.PI * 2 * index) / values.length - Math.PI / 2;
+    const currentRadius = (value / 100) * radius;
+    const x = center + Math.cos(angle) * currentRadius;
+    const y = center + Math.sin(angle) * currentRadius;
+    return { x, y, value, label: labels[index] };
+  });
 
-      const lower = value.toLowerCase();
-      let answer = 'Рекомендую начать с книги «Сделано в Америке» и видео «Как продавать без давления». Вернитесь позже и сохраните заметку о том, что вы решили попробовать.';
+  const polygonPoints = points.map(p => `${p.x},${p.y}`).join(' ');
+  svg += `<polygon points="${polygonPoints}" fill="rgba(83,214,194,0.15)" stroke="#53d6c2" stroke-width="2.5" />`;
 
-      if (lower.includes('прод') || lower.includes('продав') || lower.includes('маркет')) {
-        answer = 'Похоже, вам важен рост продаж. Советую книгу «Сделано в Америке» и видео «Как продавать в онлайн-бизнесе без лишних расходов». Вернитесь и сохраните заметку после выбора пути.';
-      } else if (lower.includes('страх') || lower.includes('трев') || lower.includes('переж')) {
-        answer = 'Если вы переживаете из-за стресса и усталости, посмотрите книгу «Атомные привычки» и видео «Как вернуть энергию предпринимателю». После этого вернитесь и сделайте заметку о том, что вы хотите внедрить.';
-      } else if (lower.includes('учит') || lower.includes('обуч')) {
-        answer = 'Для обучения лучше подойдёт книга «Пиши, сокращай» и короткий обучающий ролик «Автоматизация бизнеса без боли». Вернитесь и сохраните заметку, чтобы закрепить новую идею.';
-      } else if (lower.includes('касс') || lower.includes('деньг') || lower.includes('финанс')) {
-        answer = 'Проверьте дашборд «Будущая касса». Рекомендую книгу «Финансовая грамотность для предпринимателя» и видео «Как управлять денежным потоком». Сохраните эту заметку, чтобы не забыть проверить финансы.';
-      } else if (lower.includes('энер') || lower.includes('сон') || lower.includes('устал')) {
-        answer = 'Обратите внимание на «Ментальную кассу». Рекомендую книгу «Эссенция» и видео «Сон и продуктивность для предпринимателя». Запишите, что планируете внедрить.';
-      } else if (lower.includes('клиент') || lower.includes('жалоб') || lower.includes('отзыв')) {
-        answer = 'Смотрите «Мусорное ведро» и «Скорость сарафана». Хорошая книга — «Психология влияния», а полезное видео — «Как уменьшить возвраты и жалобы». Сохраните эту рекомендацию.';
-      } else if (lower.includes('рекл') || lower.includes('час') || lower.includes('время')) {
-        answer = 'Проверьте «Золотые часы». Рекомендую книгу «Маркетинг без бюджета» и видео «Как искать лучшие часы для рекламы». Запишите, какие часы у вас самые прибыльные.';
-      } else if (lower.includes('ии') || lower.includes('нейр') || lower.includes('ai')) {
-        answer = 'Откройте блок «Эффективность искусственного интеллекта». Рекомендую книгу «Искусственный интеллект для предпринимателя» и видео «Автоматизация рутины с ИИ». Сохраните заметку о том, какие задачи можно автоматизировать.';
+  points.forEach((p, index) => {
+    svg += `
+      <g class="radar-point" data-value="${p.value}" data-label="${p.label}">
+        <circle cx="${p.x}" cy="${p.y}" r="6" fill="#53d6c2" stroke="#090b10" stroke-width="2" style="cursor:pointer;transition:all 0.3s;" />
+        <circle cx="${p.x}" cy="${p.y}" r="14" fill="rgba(83,214,194,0)" stroke="rgba(83,214,194,0)" stroke-width="2" style="cursor:pointer;transition:all 0.3s;" />
+        <title>${p.label}: ${p.value}%</title>
+      </g>
+    `;
+  });
+
+  svg += `</svg>`;
+  radarContainer.innerHTML = svg;
+
+  const pointsEl = radarContainer.querySelectorAll('.radar-point');
+  pointsEl.forEach((el, index) => {
+    const circle = el.querySelector('circle');
+    const bgCircle = el.querySelectorAll('circle')[1];
+    const value = el.dataset.value;
+    const label = el.dataset.label;
+
+    el.addEventListener('mouseenter', () => {
+      if (circle) {
+        circle.setAttribute('r', '9');
+        circle.setAttribute('fill', '#66e0cc');
       }
-
-      const botMessage = document.createElement('div');
-      botMessage.className = 'message';
-      assistantMessages.appendChild(botMessage);
-      typeMessageWithScroll(botMessage, answer, 15);
-
-      assistantInput.value = '';
-      scrollToBottom();
+      if (bgCircle) {
+        bgCircle.setAttribute('r', '20');
+        bgCircle.setAttribute('fill', 'rgba(83,214,194,0.15)');
+        bgCircle.setAttribute('stroke', 'rgba(83,214,194,0.3)');
+      }
+      showTooltip(el, `${label}: ${value}%`);
     });
+
+    el.addEventListener('mouseleave', () => {
+      if (circle) {
+        circle.setAttribute('r', '6');
+        circle.setAttribute('fill', '#53d6c2');
+      }
+      if (bgCircle) {
+        bgCircle.setAttribute('r', '14');
+        bgCircle.setAttribute('fill', 'rgba(83,214,194,0)');
+        bgCircle.setAttribute('stroke', 'rgba(83,214,194,0)');
+      }
+      hideTooltip();
+    });
+  });
+}
+
+// ============================================================
+//   TOOLTIP ДЛЯ РАДАРА
+// ============================================================
+let tooltipEl = null;
+
+function showTooltip(element, text) {
+  if (!tooltipEl) {
+    tooltipEl = document.createElement('div');
+    tooltipEl.className = 'radar-tooltip';
+    tooltipEl.style.cssText = `
+      position: fixed;
+      background: #131a24;
+      color: #f0f4fa;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid rgba(83,214,194,0.3);
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      transition: opacity 0.2s;
+      opacity: 0;
+    `;
+    document.body.appendChild(tooltipEl);
+  }
+  
+  const rect = element.getBoundingClientRect();
+  tooltipEl.textContent = text;
+  tooltipEl.style.left = (rect.left + rect.width / 2 - tooltipEl.offsetWidth / 2) + 'px';
+  tooltipEl.style.top = (rect.top - 40) + 'px';
+  tooltipEl.style.opacity = '1';
+}
+
+function hideTooltip() {
+  if (tooltipEl) {
+    tooltipEl.style.opacity = '0';
   }
 }
-  // ============================================================
+
+// ============================================================
 //   AI ASSISTANT PAGE — ЗАМЕТКИ (СОХРАНЕНИЕ, РЕДАКТИРОВАНИЕ, УДАЛЕНИЕ)
-//   БЕЗ ИКОНОК
 // ============================================================
 if (document.querySelector('.ai-notes-card')) {
   const notesList = document.getElementById('notesList');
   const noteInput = document.getElementById('noteInput');
   const addNoteBtn = document.getElementById('addNoteBtn');
 
-  // Загрузка заметок из localStorage
   let notes = JSON.parse(localStorage.getItem('ai-notes') || '[]');
 
   function renderNotes() {
@@ -734,9 +789,9 @@ if (document.querySelector('.ai-notes-card')) {
         <span class="note-text">${note}</span>
         <input class="edit-input" type="text" value="${note}" />
         <div class="note-actions">
-          <button class="edit-btn">Редактировать</button>
-          <button class="save-edit-btn">Сохранить</button>
-          <button class="delete-btn">Удалить</button>
+          <button class="edit-btn">✏️</button>
+          <button class="save-edit-btn">💾</button>
+          <button class="delete-btn">🗑️</button>
         </div>
       `;
       
@@ -749,7 +804,6 @@ if (document.querySelector('.ai-notes-card')) {
     renderNotes();
   }
 
-  // Добавление заметки
   if (addNoteBtn && noteInput) {
     addNoteBtn.addEventListener('click', () => {
       const text = noteInput.value.trim();
@@ -766,21 +820,18 @@ if (document.querySelector('.ai-notes-card')) {
     });
   }
 
-  // Обработка кликов по заметкам (удаление, редактирование)
   if (notesList) {
     notesList.addEventListener('click', (e) => {
       const item = e.target.closest('.note-item');
       if (!item) return;
       const index = parseInt(item.dataset.index);
       
-      // Удаление
       if (e.target.classList.contains('delete-btn')) {
         notes.splice(index, 1);
         saveNotes();
         return;
       }
       
-      // Редактирование
       if (e.target.classList.contains('edit-btn')) {
         item.classList.add('editing');
         const input = item.querySelector('.edit-input');
@@ -791,7 +842,6 @@ if (document.querySelector('.ai-notes-card')) {
         return;
       }
       
-      // Сохранение редактирования
       if (e.target.classList.contains('save-edit-btn')) {
         const input = item.querySelector('.edit-input');
         if (input) {
@@ -807,7 +857,6 @@ if (document.querySelector('.ai-notes-card')) {
       }
     });
 
-    // Сохранение по Enter в поле редактирования
     notesList.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         const input = e.target;
@@ -842,7 +891,6 @@ if (document.querySelector('.ai-mobile-tabs')) {
     });
   });
 
-  // По умолчанию показываем чат
   const chatTab = document.querySelector('[data-tab="chat"]');
   if (chatTab) chatTab.click();
 }
@@ -908,4 +956,8 @@ if (document.querySelector('[data-assistant-messages]')) {
     });
   }
 }
-}
+
+// ============================================================
+//   ИНИЦИАЛИЗАЦИЯ РАДАРА
+// ============================================================
+initRadar();
