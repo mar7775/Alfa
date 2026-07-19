@@ -180,44 +180,42 @@ function scrollToBottom() {
   const container = document.querySelector('.messages');
   if (!container) return;
   
-  // Мгновенная прокрутка
   container.scrollTop = container.scrollHeight;
   
-  // Двойная страховка через requestAnimationFrame
   requestAnimationFrame(() => {
     container.scrollTop = container.scrollHeight;
   });
   
-  // Тройная страховка через 50мс
   setTimeout(() => {
     container.scrollTop = container.scrollHeight;
   }, 50);
 
-  // Четверная страховка через 100мс
   setTimeout(() => {
     container.scrollTop = container.scrollHeight;
   }, 100);
 }
 
 // ============================================================
-//   ЧАТ: ЭФФЕКТ ПЕЧАТИ С АВТОПРОКРУТКОЙ
+//   ЧАТ: ЭФФЕКТ ПЕЧАТИ (С ИСПОЛЬЗОВАНИЕМ requestAnimationFrame)
 // ============================================================
 function typeMessageWithScroll(element, text, speed = 25) {
   let index = 0;
   element.textContent = '';
   
-  const timer = setInterval(() => {
+  function typeNext() {
     if (index < text.length) {
       element.textContent += text.charAt(index);
       index++;
-      // Прокручиваем после каждого добавленного символа
       scrollToBottom();
+      // Используем setTimeout для контроля скорости
+      setTimeout(typeNext, speed);
     } else {
-      clearInterval(timer);
-      // Финальная прокрутка после завершения печати
       scrollToBottom();
     }
-  }, speed);
+  }
+  
+  // Запускаем печать с небольшой задержкой, чтобы браузер успел отрисовать сообщение пользователя
+  setTimeout(typeNext, 50);
 }
 
 // ============================================================
@@ -234,6 +232,7 @@ if (chatMessages && chatForm && chatInput) {
     const first = document.createElement('div');
     first.className = 'message';
     chatMessages.appendChild(first);
+    // Для первого сообщения тоже используем ту же функцию
     typeMessageWithScroll(first, initialMessage, 20);
   }
 
@@ -247,6 +246,8 @@ if (chatMessages && chatForm && chatInput) {
     userMessage.className = 'message user';
     userMessage.textContent = value;
     chatMessages.appendChild(userMessage);
+    
+    // Прокручиваем сразу после добавления сообщения пользователя
     scrollToBottom();
 
     const lower = value.toLowerCase();
@@ -268,10 +269,11 @@ if (chatMessages && chatForm && chatInput) {
     const botMessage = document.createElement('div');
     botMessage.className = 'message';
     chatMessages.appendChild(botMessage);
+    
+    // Запускаем печать с задержкой, чтобы сообщение пользователя точно отрисовалось
     typeMessageWithScroll(botMessage, answer, 15);
 
     chatInput.value = '';
-    scrollToBottom();
   });
 }
 
