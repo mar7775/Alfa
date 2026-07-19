@@ -22,7 +22,7 @@
   </header>
 
   <main class="container ai-assistant-page">
-    <!-- ===== МОБИЛЬНЫЕ КНОПКИ-ВКЛАДКИ ===== -->
+    <!-- ===== МОБИЛЬНЫЕ КНОПКИ-ВКЛАДКИ (ВСЕГДА НАВЕРХУ) ===== -->
     <div class="ai-mobile-tabs">
       <button class="ai-tab-btn active" data-tab="chat">Чат</button>
       <button class="ai-tab-btn" data-tab="notes">Заметки</button>
@@ -44,10 +44,12 @@
           <h3>Мои заметки</h3>
           <p class="small">Сохраняйте идеи и рекомендации от ИИ</p>
           
-          <!-- Форма добавления заметки -->
+          <!-- Поле ввода + кнопка -->
           <div class="notes-input-row">
             <input type="text" id="noteInput" placeholder="Введите заметку..." />
-            <button class="btn" id="addNoteBtn">Сохранить</button>
+          </div>
+          <div class="notes-btn-row">
+            <button class="btn" id="addNoteBtn">Сохранить заметку</button>
           </div>
           
           <!-- Список заметок -->
