@@ -701,4 +701,211 @@ if (document.querySelector('[data-assistant-messages]')) {
     });
   }
 }
+  // ============================================================
+//   AI ASSISTANT PAGE — ЗАМЕТКИ (СОХРАНЕНИЕ, РЕДАКТИРОВАНИЕ, УДАЛЕНИЕ)
+//   БЕЗ ИКОНОК
+// ============================================================
+if (document.querySelector('.ai-notes-card')) {
+  const notesList = document.getElementById('notesList');
+  const noteInput = document.getElementById('noteInput');
+  const addNoteBtn = document.getElementById('addNoteBtn');
+
+  // Загрузка заметок из localStorage
+  let notes = JSON.parse(localStorage.getItem('ai-notes') || '[]');
+
+  function renderNotes() {
+    if (!notesList) return;
+    notesList.innerHTML = '';
+    
+    if (notes.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'note-item';
+      empty.innerHTML = `<span class="note-text" style="color: var(--text-muted); font-style: italic;">Нет заметок. Напишите первую!</span>`;
+      notesList.appendChild(empty);
+      return;
+    }
+
+    notes.forEach((note, index) => {
+      const item = document.createElement('div');
+      item.className = 'note-item';
+      item.dataset.index = index;
+      
+      item.innerHTML = `
+        <span class="note-text">${note}</span>
+        <input class="edit-input" type="text" value="${note}" />
+        <div class="note-actions">
+          <button class="edit-btn">Редактировать</button>
+          <button class="save-edit-btn">Сохранить</button>
+          <button class="delete-btn">Удалить</button>
+        </div>
+      `;
+      
+      notesList.appendChild(item);
+    });
+  }
+
+  function saveNotes() {
+    localStorage.setItem('ai-notes', JSON.stringify(notes));
+    renderNotes();
+  }
+
+  // Добавление заметки
+  if (addNoteBtn && noteInput) {
+    addNoteBtn.addEventListener('click', () => {
+      const text = noteInput.value.trim();
+      if (!text) return;
+      notes.push(text);
+      saveNotes();
+      noteInput.value = '';
+    });
+
+    noteInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        addNoteBtn.click();
+      }
+    });
+  }
+
+  // Обработка кликов по заметкам (удаление, редактирование)
+  if (notesList) {
+    notesList.addEventListener('click', (e) => {
+      const item = e.target.closest('.note-item');
+      if (!item) return;
+      const index = parseInt(item.dataset.index);
+      
+      // Удаление
+      if (e.target.classList.contains('delete-btn')) {
+        notes.splice(index, 1);
+        saveNotes();
+        return;
+      }
+      
+      // Редактирование
+      if (e.target.classList.contains('edit-btn')) {
+        item.classList.add('editing');
+        const input = item.querySelector('.edit-input');
+        if (input) {
+          input.focus();
+          input.select();
+        }
+        return;
+      }
+      
+      // Сохранение редактирования
+      if (e.target.classList.contains('save-edit-btn')) {
+        const input = item.querySelector('.edit-input');
+        if (input) {
+          const newText = input.value.trim();
+          if (newText) {
+            notes[index] = newText;
+            saveNotes();
+          } else {
+            item.classList.remove('editing');
+          }
+        }
+        return;
+      }
+    });
+
+    // Сохранение по Enter в поле редактирования
+    notesList.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const input = e.target;
+        if (input.classList.contains('edit-input')) {
+          const item = input.closest('.note-item');
+          const saveBtn = item?.querySelector('.save-edit-btn');
+          if (saveBtn) saveBtn.click();
+        }
+      }
+    });
+  }
+
+  renderNotes();
+}
+
+// ============================================================
+//   AI ASSISTANT PAGE — МОБИЛЬНЫЕ ВКЛАДКИ
+// ============================================================
+if (document.querySelector('.ai-mobile-tabs')) {
+  const tabs = document.querySelectorAll('.ai-tab-btn');
+  const contents = document.querySelectorAll('.ai-tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const target = tab.dataset.tab;
+      contents.forEach(content => {
+        content.classList.toggle('active', content.dataset.tabContent === target);
+      });
+    });
+  });
+
+  // По умолчанию показываем чат
+  const chatTab = document.querySelector('[data-tab="chat"]');
+  if (chatTab) chatTab.click();
+}
+
+// ============================================================
+//   AI ASSISTANT PAGE — ЧАТ
+// ============================================================
+if (document.querySelector('[data-assistant-messages]')) {
+  const assistantMessages = document.querySelector('[data-assistant-messages]');
+  const assistantForm = document.querySelector('[data-assistant-form]');
+  const assistantInput = document.querySelector('[data-assistant-input]');
+
+  if (assistantMessages && assistantForm && assistantInput) {
+    const initialAssistant = 'Здравствуйте! Я ваш персональный ИИ-помощник. Задайте вопрос по любому дашборду: энергия, касса, клиенты, реклама, эффективность ИИ или попросите рекомендацию.';
+
+    if (!assistantMessages.querySelector('.message')) {
+      const first = document.createElement('div');
+      first.className = 'message';
+      assistantMessages.appendChild(first);
+      typeMessageWithScroll(first, initialAssistant, 20);
+    }
+
+    assistantForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const value = assistantInput.value.trim();
+      if (!value) return;
+
+      const userMessage = document.createElement('div');
+      userMessage.className = 'message user';
+      userMessage.textContent = value;
+      assistantMessages.appendChild(userMessage);
+      scrollToBottom();
+      highlightMessage(userMessage);
+
+      const lower = value.toLowerCase();
+      let answer = 'Рекомендую начать с книги «Сделано в Америке» и видео «Как продавать без давления». Вернитесь позже и сохраните заметку о том, что вы решили попробовать.';
+
+      if (lower.includes('прод') || lower.includes('продав') || lower.includes('маркет')) {
+        answer = 'Похоже, вам важен рост продаж. Советую книгу «Сделано в Америке» и видео «Как продавать в онлайн-бизнесе без лишних расходов». Вернитесь и сохраните заметку после выбора пути.';
+      } else if (lower.includes('страх') || lower.includes('трев') || lower.includes('переж')) {
+        answer = 'Если вы переживаете из-за стресса и усталости, посмотрите книгу «Атомные привычки» и видео «Как вернуть энергию предпринимателю». После этого вернитесь и сделайте заметку о том, что вы хотите внедрить.';
+      } else if (lower.includes('учит') || lower.includes('обуч')) {
+        answer = 'Для обучения лучше подойдёт книга «Пиши, сокращай» и короткий обучающий ролик «Автоматизация бизнеса без боли». Вернитесь и сохраните заметку, чтобы закрепить новую идею.';
+      } else if (lower.includes('касс') || lower.includes('деньг') || lower.includes('финанс')) {
+        answer = 'Проверьте дашборд «Будущая касса». Рекомендую книгу «Финансовая грамотность для предпринимателя» и видео «Как управлять денежным потоком». Сохраните эту заметку, чтобы не забыть проверить финансы.';
+      } else if (lower.includes('энер') || lower.includes('сон') || lower.includes('устал')) {
+        answer = 'Обратите внимание на «Ментальную кассу». Рекомендую книгу «Эссенция» и видео «Сон и продуктивность для предпринимателя». Запишите, что планируете внедрить.';
+      } else if (lower.includes('клиент') || lower.includes('жалоб') || lower.includes('отзыв')) {
+        answer = 'Смотрите «Мусорное ведро» и «Скорость сарафана». Хорошая книга — «Психология влияния», а полезное видео — «Как уменьшить возвраты и жалобы». Сохраните эту рекомендацию.';
+      } else if (lower.includes('рекл') || lower.includes('час') || lower.includes('время')) {
+        answer = 'Проверьте «Золотые часы». Рекомендую книгу «Маркетинг без бюджета» и видео «Как искать лучшие часы для рекламы». Запишите, какие часы у вас самые прибыльные.';
+      } else if (lower.includes('ии') || lower.includes('нейр') || lower.includes('ai')) {
+        answer = 'Откройте блок «Эффективность искусственного интеллекта». Рекомендую книгу «Искусственный интеллект для предпринимателя» и видео «Автоматизация рутины с ИИ». Сохраните заметку о том, какие задачи можно автоматизировать.';
+      }
+
+      const botMessage = document.createElement('div');
+      botMessage.className = 'message';
+      assistantMessages.appendChild(botMessage);
+      typeMessageWithScroll(botMessage, answer, 15);
+
+      assistantInput.value = '';
+      scrollToBottom();
+    });
+  }
+}
 }
