@@ -174,22 +174,36 @@ function handleHamburger() {
 }
 
 // ============================================================
-//   ЧАТ: ПРОКРУТКА ВНИЗ
+//   ЧАТ: ПРОКРУТКА ВНИЗ (ГАРАНТИРОВАННАЯ — С ОЖИДАНИЕМ ОТРИСОВКИ)
 // ============================================================
 function scrollToBottom() {
   const container = document.querySelector('.messages');
   if (!container) return;
+  
+  // 1. Немедленная прокрутка
   container.scrollTop = container.scrollHeight;
+  
+  // 2. Прокрутка после отрисовки (самый надёжный способ)
+  requestAnimationFrame(() => {
+    container.scrollTop = container.scrollHeight;
+  });
+  
+  // 3. Прокрутка с задержкой для мобильных устройств
+  setTimeout(() => {
+    container.scrollTop = container.scrollHeight;
+  }, 50);
+  
+  // 4. Максимальная страховка для медленных устройств
+  setTimeout(() => {
+    container.scrollTop = container.scrollHeight;
+  }, 150);
 }
 
 // ============================================================
 //   ЧАТ: АКЦЕНТ НА СООБЩЕНИИ ПОЛЬЗОВАТЕЛЯ
 // ============================================================
 function highlightMessage(element) {
-  // Добавляем класс для подсветки
   element.classList.add('highlight');
-  
-  // Убираем подсветку через 1.5 секунды
   setTimeout(() => {
     element.classList.remove('highlight');
   }, 1500);
@@ -198,7 +212,7 @@ function highlightMessage(element) {
 // ============================================================
 //   ЧАТ: ЭФФЕКТ ПЕЧАТИ
 // ============================================================
-function typeMessageWithScroll(element, text, speed = 25, callback) {
+function typeMessageWithScroll(element, text, speed = 25) {
   let index = 0;
   element.textContent = '';
   
@@ -206,14 +220,16 @@ function typeMessageWithScroll(element, text, speed = 25, callback) {
     if (index < text.length) {
       element.textContent += text.charAt(index);
       index++;
+      // Прокручиваем после каждого символа
       scrollToBottom();
       setTimeout(typeNext, speed);
     } else {
+      // Финальная прокрутка после завершения
       scrollToBottom();
-      if (callback) callback();
     }
   }
   
+  // Небольшая задержка перед началом печати
   setTimeout(typeNext, 10);
 }
 
@@ -239,18 +255,27 @@ if (chatMessages && chatForm && chatInput) {
     const value = chatInput.value.trim();
     if (!value) return;
 
-    // ===== СООБЩЕНИЕ ПОЛЬЗОВАТЕЛЯ — МГНОВЕННО =====
+    // ===== 1. СООБЩЕНИЕ ПОЛЬЗОВАТЕЛЯ — МГНОВЕННО =====
     const userMessage = document.createElement('div');
     userMessage.className = 'message user';
     userMessage.textContent = value;
     chatMessages.appendChild(userMessage);
     
-    // МГНОВЕННАЯ ПРОКРУТКА К СООБЩЕНИЮ
+    // ===== 2. ПРОКРУТКА С ГАРАНТИЕЙ =====
+    // Сразу
     scrollToBottom();
+    // Через RAF (после отрисовки)
+    requestAnimationFrame(() => {
+      scrollToBottom();
+    });
+    // Через таймеры для мобильных
+    setTimeout(scrollToBottom, 50);
+    setTimeout(scrollToBottom, 150);
     
-    // АКЦЕНТ НА СООБЩЕНИИ (подсветка + плавный переход)
+    // ===== 3. АКЦЕНТ НА СООБЩЕНИИ =====
     highlightMessage(userMessage);
 
+    // ===== 4. ОТВЕТ ИИ =====
     const lower = value.toLowerCase();
     let answer = 'Я вижу, что вы хотите быстрое решение. Для старта рекомендую книгу «Краткая история времени» как ввод в системное мышление и ролик по управлению временем на YouTube: «Как не сгореть в бизнесе».';
 
@@ -266,13 +291,15 @@ if (chatMessages && chatForm && chatInput) {
       answer = 'Откройте блок «Эффективность искусственного интеллекта». Рекомендую книгу «Искусственный интеллект для предпринимателя» и видео «Автоматизация рутины с ИИ».';
     }
 
-    // ===== СООБЩЕНИЕ ИИ — С ЭФФЕКТОМ ПЕЧАТИ =====
+    // ===== 5. СООБЩЕНИЕ ИИ — С ЭФФЕКТОМ ПЕЧАТИ =====
     const botMessage = document.createElement('div');
     botMessage.className = 'message';
     chatMessages.appendChild(botMessage);
     
-    // Запускаем печать
-    typeMessageWithScroll(botMessage, answer, 15);
+    // Небольшая задержка перед печатью
+    setTimeout(() => {
+      typeMessageWithScroll(botMessage, answer, 15);
+    }, 50);
 
     chatInput.value = '';
   });
