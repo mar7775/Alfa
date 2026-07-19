@@ -1334,3 +1334,164 @@ header.scrolled {
 .message.user {
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+/* ============================================================
+   AI ASSISTANT PAGE — СПЕЦИАЛЬНАЯ СТРАНИЦА
+   ============================================================ */
+.ai-assistant-page {
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+.ai-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ===== ЛЕВАЯ ПАНЕЛЬ ===== */
+.ai-left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ai-radar-card {
+  background: var(--bg-card);
+  padding: 24px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  text-align: center;
+}
+
+.ai-radar-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 2px;
+}
+
+.ai-radar-card .small {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin-bottom: 12px;
+}
+
+.radar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.radar-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.ai-notes-card {
+  background: var(--bg-card);
+  padding: 24px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.ai-notes-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 2px;
+}
+
+.ai-notes-card .small {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin-bottom: 12px;
+}
+
+.ai-notes-card textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+  transition: border-color var(--transition);
+  margin-bottom: 12px;
+}
+
+.ai-notes-card textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.ai-notes-card .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ===== ПРАВАЯ ПАНЕЛЬ ===== */
+.ai-right-panel {
+  min-height: 500px;
+}
+
+.ai-right-panel .panel {
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-right-panel .chat-card .messages {
+  max-height: 350px;
+  flex: 1;
+}
+
+.ai-right-panel .chat-card .messages {
+  max-height: 320px;
+  min-height: 200px;
+}
+
+/* ===== АДАПТИВ ===== */
+@media (max-width: 992px) {
+  .ai-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .ai-left-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .ai-right-panel .chat-card .messages {
+    max-height: 250px;
+  }
+}
+
+@media (max-width: 600px) {
+  .ai-left-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-right-panel .chat-card .messages {
+    max-height: 200px;
+  }
+
+  .ai-radar-card {
+    padding: 16px;
+  }
+
+  .ai-notes-card {
+    padding: 16px;
+  }
+}
+
+/* ===== АКТИВНАЯ ССЫЛКА В ШАПКЕ ===== */
+.nav-links a.active {
+  color: var(--text-primary);
+}
+
+.nav-links a.active::after {
+  width: 100%;
+}
