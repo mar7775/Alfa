@@ -190,6 +190,16 @@ function typeMessage(element, text, speed = 25) {
 }
 
 // ============================================================
+//   ЧАТ: АВТОМАТИЧЕСКАЯ ПРОКРУТКА ВНИЗ
+// ============================================================
+function scrollToBottom() {
+  const messagesContainer = document.querySelector('.messages');
+  if (messagesContainer) {
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+}
+
+// ============================================================
 //   ЧАТ: ОСНОВНАЯ ЛОГИКА
 // ============================================================
 const chatMessages = document.querySelector('.messages');
@@ -204,6 +214,8 @@ if (chatMessages && chatForm && chatInput) {
     first.className = 'message';
     chatMessages.appendChild(first);
     typeMessage(first, initialMessage, 20);
+    // Прокручиваем вниз после первого сообщения
+    setTimeout(scrollToBottom, 100);
   }
 
   chatForm.addEventListener('submit', event => {
@@ -215,6 +227,7 @@ if (chatMessages && chatForm && chatInput) {
     userMessage.className = 'message user';
     userMessage.textContent = value;
     chatMessages.appendChild(userMessage);
+    scrollToBottom();
 
     const lower = value.toLowerCase();
     let answer = 'Я вижу, что вы хотите быстрое решение. Для старта рекомендую книгу «Краткая история времени» как ввод в системное мышление и ролик по управлению временем на YouTube: «Как не сгореть в бизнесе».';
@@ -235,9 +248,11 @@ if (chatMessages && chatForm && chatInput) {
     botMessage.className = 'message';
     chatMessages.appendChild(botMessage);
     typeMessage(botMessage, answer, 15);
+    
+    // Прокручиваем вниз после завершения печати
+    setTimeout(scrollToBottom, 100);
 
     chatInput.value = '';
-    chatMessages.scrollTop = chatMessages.scrollHeight;
   });
 }
 
@@ -493,22 +508,19 @@ if (radarCanvas) {
 }
 
 // ============================================================
-//   МАСКОТ: ИНТЕРАКТИВНОСТЬ (ВЫНЕСЕН НАРУЖУ)
+//   МАСКОТ: ИНТЕРАКТИВНОСТЬ
 // ============================================================
 const robotWrapper = document.querySelector('.robot-animation-wrapper');
 
 if (robotWrapper) {
   const robotImage = robotWrapper.querySelector('.robot-image');
-  const robotFace = robotWrapper.querySelector('.robot-mask-face');
 
   robotWrapper.addEventListener('mouseover', () => {
     if (robotImage) robotImage.style.animationDuration = '2s';
-    if (robotFace) robotFace.style.animationDuration = '1.2s';
   });
 
   robotWrapper.addEventListener('mouseout', () => {
     if (robotImage) robotImage.style.animationDuration = '4s';
-    if (robotFace) robotFace.style.animationDuration = '2.5s';
   });
 }
 
