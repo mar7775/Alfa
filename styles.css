@@ -634,7 +634,7 @@ header.scrolled {
 }
 
 /* ============================================================
-   CHAT С МАСКОТОМ (ОБЪЕДИНЁННАЯ ВЕРСИЯ)
+   CHAT С МАСКОТОМ (СЛЕВА, УВЕЛИЧЕННЫЙ 140px)
    ============================================================ */
 .panel {
   background: var(--bg-card);
@@ -651,9 +651,8 @@ header.scrolled {
 
 .chat-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 4px;
 }
@@ -665,13 +664,19 @@ header.scrolled {
   flex-wrap: wrap;
 }
 
-.chat-header-left h3 {
-  font-size: 1.2rem;
-  margin: 0;
-}
-
 .chat-mascot {
   flex-shrink: 0;
+}
+
+.chat-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.chat-header-info h3 {
+  font-size: 1.2rem;
+  margin: 0;
 }
 
 .online-status {
@@ -769,15 +774,15 @@ header.scrolled {
 }
 
 /* ============================================================
-   МАСКОТ (АНИМАЦИЯ) — УВЕЛИЧЕННЫЙ ДО 80px
+   МАСКОТ (АНИМАЦИЯ) — 140px СЛЕВА
    ============================================================ */
 .robot-animation-wrapper {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80px;
-  height: 80px;
+  width: 140px;
+  height: 140px;
   overflow: hidden;
   transition: transform 0.3s ease;
   flex-shrink: 0;
@@ -1250,24 +1255,28 @@ header.scrolled {
     font-size: 1.1rem;
   }
 
-  /* Чат с маскотом на мобильных — увеличенный */
+  /* Чат с маскотом на мобильных */
   .chat-header {
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-start;
   }
 
   .chat-header-left {
-    justify-content: space-between;
     width: 100%;
+    justify-content: flex-start;
   }
 
   .chat-mascot {
-    align-self: flex-end;
+    align-self: flex-start;
   }
 
   .robot-animation-wrapper {
-    width: 60px;
-    height: 60px;
+    width: 90px;
+    height: 90px;
+  }
+
+  .chat-header-info h3 {
+    font-size: 1rem;
   }
 
   .chat-form .form-row {
