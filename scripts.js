@@ -562,7 +562,7 @@ if (document.getElementById('detail-title')) {
       `;
     }
   }
-  // ============================================================
+ // ============================================================
 //   МАСКОТ: ИНТЕРАКТИВНОСТЬ
 // ============================================================
 const robotWrapper = document.querySelector('.robot-animation-wrapper');
@@ -580,5 +580,4 @@ if (robotWrapper) {
     if (robotImage) robotImage.style.animationDuration = '4s';
     if (robotFace) robotFace.style.animationDuration = '2.5s';
   });
-}
 }
