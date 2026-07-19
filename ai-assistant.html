@@ -22,27 +22,41 @@
   </header>
 
   <main class="container ai-assistant-page">
+    <!-- ===== МОБИЛЬНЫЕ КНОПКИ-ВКЛАДКИ ===== -->
+    <div class="ai-mobile-tabs">
+      <button class="ai-tab-btn active" data-tab="chat">Чат</button>
+      <button class="ai-tab-btn" data-tab="notes">Заметки</button>
+      <button class="ai-tab-btn" data-tab="radar">Баланс</button>
+    </div>
+
     <div class="ai-layout">
       <!-- ===== ЛЕВАЯ КОЛОНКА: РАДАР + ЗАМЕТКИ ===== -->
       <div class="ai-left-panel">
         <!-- Радар -->
-        <div class="ai-radar-card">
-          <h3>📊 Баланс дашбордов</h3>
+        <div class="ai-radar-card ai-tab-content" data-tab-content="radar">
+          <h3>Баланс дашбордов</h3>
           <p class="small">Оценка состояния по 6 ключевым направлениям</p>
           <div class="radar-container" data-radar></div>
         </div>
 
         <!-- Заметки -->
-        <div class="ai-notes-card">
-          <h3>📝 Заметки и рекомендации</h3>
+        <div class="ai-notes-card ai-tab-content" data-tab-content="notes">
+          <h3>Мои заметки</h3>
           <p class="small">Сохраняйте идеи и рекомендации от ИИ</p>
-          <textarea data-note-area placeholder="Введите заметку..." rows="4"></textarea>
-          <button class="btn" data-save-note>💾 Сохранить заметку</button>
+          
+          <!-- Форма добавления заметки -->
+          <div class="notes-input-row">
+            <input type="text" id="noteInput" placeholder="Введите заметку..." />
+            <button class="btn" id="addNoteBtn">Сохранить</button>
+          </div>
+          
+          <!-- Список заметок -->
+          <div class="notes-list" id="notesList"></div>
         </div>
       </div>
 
       <!-- ===== ПРАВАЯ КОЛОНКА: РАСШИРЕННЫЙ ЧАТ ===== -->
-      <div class="ai-right-panel">
+      <div class="ai-right-panel ai-tab-content" data-tab-content="chat">
         <div class="panel chat-card">
           <div class="chat-header">
             <div class="chat-header-left">
@@ -52,7 +66,7 @@
                 </div>
               </div>
               <div class="chat-header-info">
-                <h3>🤖 ИИ помощник</h3>
+                <h3>ИИ помощник</h3>
                 <span class="online-status"><span class="dot"></span> Онлайн</span>
               </div>
             </div>
