@@ -634,7 +634,7 @@ header.scrolled {
 }
 
 /* ============================================================
-   CHAT С МАСКОТОМ (СЛЕВА НА ДЕСКТОПЕ, СПРАВА НА МОБИЛЬНЫХ)
+   CHAT С МАСКОТОМ (СЛЕВА НА ВСЕХ УСТРОЙСТВАХ)
    ============================================================ */
 .panel {
   background: var(--bg-card);
@@ -659,10 +659,12 @@ header.scrolled {
 .chat-header-left {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  gap: 20px;
   flex-wrap: wrap;
-  gap: 12px;
+}
+
+.chat-mascot {
+  flex-shrink: 0;
 }
 
 .chat-header-info {
@@ -674,10 +676,6 @@ header.scrolled {
 .chat-header-info h3 {
   font-size: 1.2rem;
   margin: 0;
-}
-
-.chat-mascot {
-  flex-shrink: 0;
 }
 
 .online-status {
@@ -716,6 +714,7 @@ header.scrolled {
   flex-direction: column;
   gap: 10px;
   padding-right: 4px;
+  scroll-behavior: smooth;
 }
 
 .message {
@@ -1139,7 +1138,7 @@ header.scrolled {
 }
 
 /* ============================================================
-   ADAPTIVE — МОБИЛЬНЫЕ (маскот СПРАВА)
+   ADAPTIVE — МОБИЛЬНЫЕ (маскот СЛЕВА)
    ============================================================ */
 @media (max-width: 768px) {
   .container {
@@ -1231,11 +1230,12 @@ header.scrolled {
     font-size: 1.1rem;
   }
 
-  /* МАСКОТ СПРАВА НА МОБИЛЬНЫХ */
+  /* МАСКОТ СЛЕВА НА МОБИЛЬНЫХ */
   .chat-header-left {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    gap: 12px;
     width: 100%;
   }
 
@@ -1244,7 +1244,7 @@ header.scrolled {
   }
 
   .chat-mascot {
-    order: 2;
+    order: 0;
     flex-shrink: 0;
   }
 
