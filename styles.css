@@ -634,7 +634,7 @@ header.scrolled {
 }
 
 /* ============================================================
-   CHAT С МАСКОТОМ (СЛЕВА, УВЕЛИЧЕННЫЙ 140px)
+   CHAT С МАСКОТОМ (СЛЕВА, 180px)
    ============================================================ */
 .panel {
   background: var(--bg-card);
@@ -653,14 +653,14 @@ header.scrolled {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 12px;
+  gap: 20px;
   margin-bottom: 4px;
 }
 
 .chat-header-left {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
@@ -774,15 +774,15 @@ header.scrolled {
 }
 
 /* ============================================================
-   МАСКОТ (АНИМАЦИЯ) — 140px СЛЕВА
+   МАСКОТ (АНИМАЦИЯ) — 180px СЛЕВА
    ============================================================ */
 .robot-animation-wrapper {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 140px;
-  height: 140px;
+  width: 180px;
+  height: 180px;
   overflow: hidden;
   transition: transform 0.3s ease;
   flex-shrink: 0;
@@ -1255,15 +1255,17 @@ header.scrolled {
     font-size: 1.1rem;
   }
 
-  /* Чат с маскотом на мобильных */
+  /* Чат с маскотом на мобильных — увеличенный */
   .chat-header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 12px;
   }
 
   .chat-header-left {
     width: 100%;
     justify-content: flex-start;
+    gap: 12px;
   }
 
   .chat-mascot {
@@ -1271,8 +1273,8 @@ header.scrolled {
   }
 
   .robot-animation-wrapper {
-    width: 90px;
-    height: 90px;
+    width: 110px;
+    height: 110px;
   }
 
   .chat-header-info h3 {
