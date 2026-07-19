@@ -715,6 +715,7 @@ header.scrolled {
   gap: 10px;
   padding-right: 4px;
   scroll-behavior: smooth;
+  overscroll-behavior: contain;  /* ← БЛОКИРУЕТ ПРОКРУТКУ СТРАНИЦЫ */
 }
 
 .chat-card .messages::-webkit-scrollbar {
@@ -1244,7 +1245,6 @@ header.scrolled {
     font-size: 1.1rem;
   }
 
-  /* ===== МАСКОТ СЛЕВА, УВЕЛИЧЕННЫЙ ДО 90px ===== */
   .chat-header-left {
     gap: 14px;
     width: 100%;
@@ -1271,10 +1271,10 @@ header.scrolled {
     animation-duration: 3s;
   }
 
-  /* ===== ЧАТ НА МОБИЛЬНЫХ ===== */
   .chat-card .messages {
     max-height: 200px;
     min-height: 100px;
+    overscroll-behavior: contain;
   }
 
   .message {
