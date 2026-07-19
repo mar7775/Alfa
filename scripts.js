@@ -174,17 +174,22 @@ function handleHamburger() {
 }
 
 // ============================================================
-//   ЧАТ: ЭФФЕКТ ПЕЧАТИ
+//   ЧАТ: ЭФФЕКТ ПЕЧАТИ С АВТОПРОКРУТКОЙ
 // ============================================================
-function typeMessage(element, text, speed = 25) {
+function typeMessageWithScroll(element, text, speed = 25) {
   let index = 0;
   element.textContent = '';
+  
   const timer = setInterval(() => {
     if (index < text.length) {
       element.textContent += text.charAt(index);
       index++;
+      // Прокручиваем после каждого добавленного символа
+      scrollToBottom();
     } else {
       clearInterval(timer);
+      // Финальная прокрутка после завершения печати
+      scrollToBottom();
     }
   }, speed);
 }
@@ -196,13 +201,18 @@ function scrollToBottom() {
   const container = document.querySelector('.messages');
   if (!container) return;
   
-  // Принудительная прокрутка до самого низа
+  // Немедленная прокрутка
   container.scrollTop = container.scrollHeight;
   
-  // Дополнительная прокрутка после перерисовки
+  // Дополнительная прокрутка после перерисовки DOM
   requestAnimationFrame(() => {
     container.scrollTop = container.scrollHeight;
   });
+  
+  // Ещё одна прокрутка через 50мс для надёжности
+  setTimeout(() => {
+    container.scrollTop = container.scrollHeight;
+  }, 50);
 }
 
 // ============================================================
@@ -219,9 +229,7 @@ if (chatMessages && chatForm && chatInput) {
     const first = document.createElement('div');
     first.className = 'message';
     chatMessages.appendChild(first);
-    typeMessage(first, initialMessage, 20);
-    setTimeout(scrollToBottom, 50);
-    setTimeout(scrollToBottom, 300);
+    typeMessageWithScroll(first, initialMessage, 20);
   }
 
   chatForm.addEventListener('submit', event => {
@@ -251,19 +259,11 @@ if (chatMessages && chatForm && chatInput) {
       answer = 'Откройте блок «Эффективность искусственного интеллекта». Рекомендую книгу «Искусственный интеллект для предпринимателя» и видео «Автоматизация рутины с ИИ».';
     }
 
-    // Ответ бота с эффектом печати
+    // Ответ бота с эффектом печати и автопрокруткой
     const botMessage = document.createElement('div');
     botMessage.className = 'message';
     chatMessages.appendChild(botMessage);
-    
-    // Запускаем печать и прокрутку
-    typeMessage(botMessage, answer, 15);
-    
-    // Множественные прокрутки для гарантии
-    setTimeout(scrollToBottom, 50);
-    setTimeout(scrollToBottom, 150);
-    setTimeout(scrollToBottom, 300);
-    setTimeout(scrollToBottom, 500);
+    typeMessageWithScroll(botMessage, answer, 15);
 
     chatInput.value = '';
   });
@@ -436,7 +436,7 @@ if (assistantMessages && assistantForm && assistantInput) {
     const first = document.createElement('div');
     first.className = 'message';
     assistantMessages.appendChild(first);
-    typeMessage(first, initialAssistant, 20);
+    typeMessageWithScroll(first, initialAssistant, 20);
   }
 
   assistantForm.addEventListener('submit', event => {
@@ -463,7 +463,7 @@ if (assistantMessages && assistantForm && assistantInput) {
     const botMessage = document.createElement('div');
     botMessage.className = 'message';
     assistantMessages.appendChild(botMessage);
-    typeMessage(botMessage, answer, 15);
+    typeMessageWithScroll(botMessage, answer, 15);
 
     assistantInput.value = '';
     assistantMessages.scrollTop = assistantMessages.scrollHeight;
