@@ -344,7 +344,6 @@ header.scrolled {
   transform: translateY(0);
 }
 
-/* Stagger задержки для карточек */
 .fade-item:nth-child(1) {
   transition-delay: 0.05s;
 }
@@ -635,7 +634,7 @@ header.scrolled {
 }
 
 /* ============================================================
-   CHAT
+   CHAT С МАСКОТОМ (ОБЪЕДИНЁННАЯ ВЕРСИЯ)
    ============================================================ */
 .panel {
   background: var(--bg-card);
@@ -659,8 +658,20 @@ header.scrolled {
   margin-bottom: 4px;
 }
 
-.chat-header h3 {
+.chat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.chat-header-left h3 {
   font-size: 1.2rem;
+  margin: 0;
+}
+
+.chat-mascot {
+  flex-shrink: 0;
 }
 
 .online-status {
@@ -681,8 +692,7 @@ header.scrolled {
 }
 
 @keyframes pulse-dot {
-  0%,
-  100% {
+  0%, 100% {
     opacity: 1;
     transform: scale(1);
   }
@@ -756,6 +766,68 @@ header.scrolled {
   border-color: var(--accent);
   background: rgba(255, 255, 255, 0.05);
   box-shadow: 0 0 0 4px rgba(83, 214, 194, 0.06);
+}
+
+/* ============================================================
+   МАСКОТ (АНИМАЦИЯ)
+   ============================================================ */
+.robot-animation-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.robot-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  animation: swingWings 4s infinite ease-in-out;
+  transform-origin: center center;
+}
+
+.robot-mask-face {
+  position: absolute;
+  top: 33.5%;
+  left: 40.5%;
+  width: 19%;
+  height: 14%;
+  background: rgba(0, 191, 255, 0.1);
+  border-radius: 5px;
+  pointer-events: none;
+  animation: pulseSmile 2.5s infinite ease-in-out;
+}
+
+.robot-animation-wrapper:hover .robot-image {
+  transform: scale(1.1);
+  animation-duration: 2s;
+}
+
+.robot-animation-wrapper:hover .robot-mask-face {
+  animation-duration: 1.2s;
+}
+
+@keyframes swingWings {
+  0%, 100% {
+    transform: scale(1) rotate(-1.5deg) skewY(-1.5deg);
+  }
+  50% {
+    transform: scale(1.03) rotate(1.5deg) skewY(1.5deg);
+  }
+}
+
+@keyframes pulseSmile {
+  0%, 100% {
+    filter: brightness(1) contrast(1) drop-shadow(0 0 5px rgba(0, 191, 255, 0.4));
+  }
+  50% {
+    filter: brightness(1.4) contrast(1.5) drop-shadow(0 0 15px rgba(0, 191, 255, 0.9));
+  }
 }
 
 /* ============================================================
@@ -1086,7 +1158,7 @@ header.scrolled {
 }
 
 /* ============================================================
-   ADAPTIVE — ТОЛЬКО МОБИЛЬНЫЕ
+   ADAPTIVE — МОБИЛЬНЫЕ
    ============================================================ */
 @media (max-width: 768px) {
   .container {
@@ -1137,7 +1209,6 @@ header.scrolled {
     font-size: 1.6rem;
   }
 
-  /* ДАШБОРДЫ: 1 КОЛОНКА НА МОБИЛЬНЫХ */
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
@@ -1179,12 +1250,26 @@ header.scrolled {
     font-size: 1.1rem;
   }
 
+  /* Чат с маскотом на мобильных */
   .chat-header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
   }
 
-  /* КНОПКА "ОТПРАВИТЬ" НА МОБИЛЬНЫХ */
+  .chat-header-left {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .chat-mascot {
+    align-self: flex-end;
+  }
+
+  .robot-animation-wrapper {
+    width: 44px;
+    height: 44px;
+  }
+
   .chat-form .form-row {
     flex-direction: column;
     gap: 10px;
@@ -1215,122 +1300,9 @@ header.scrolled {
     max-height: 180px;
   }
 }
+
 /* ============================================================
-   ЧАТ С МАСКОТОМ
-   ============================================================ */
-.chat-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 4px;
-}
-
-.chat-header-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.chat-header-left h3 {
-  font-size: 1.2rem;
-  margin: 0;
-}
-
-.chat-mascot {
-  flex-shrink: 0;
-}
-
-/* ===== АНИМАЦИЯ МАСКОТА ===== */
-.robot-animation-wrapper {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 56px;
-  height: 56px;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-  flex-shrink: 0;
-}
-
-.robot-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  animation: swingWings 4s infinite ease-in-out;
-  transform-origin: center center;
-}
-
-.robot-mask-face {
-  position: absolute;
-  top: 33.5%;
-  left: 40.5%;
-  width: 19%;
-  height: 14%;
-  background: rgba(0, 191, 255, 0.1);
-  border-radius: 5px;
-  pointer-events: none;
-  animation: pulseSmile 2.5s infinite ease-in-out;
-}
-
-.robot-animation-wrapper:hover .robot-image {
-  transform: scale(1.1);
-}
-
-.robot-animation-wrapper:hover .robot-image {
-  animation-duration: 2s;
-}
-
-.robot-animation-wrapper:hover .robot-mask-face {
-  animation-duration: 1.2s;
-}
-
-/* Анимация покачивания */
-@keyframes swingWings {
-  0%, 100% {
-    transform: scale(1) rotate(-1.5deg) skewY(-1.5deg);
-  }
-  50% {
-    transform: scale(1.03) rotate(1.5deg) skewY(1.5deg);
-  }
-}
-
-/* Анимация пульсации улыбки */
-@keyframes pulseSmile {
-  0%, 100% {
-    filter: brightness(1) contrast(1) drop-shadow(0 0 5px rgba(0, 191, 255, 0.4));
-  }
-  50% {
-    filter: brightness(1.4) contrast(1.5) drop-shadow(0 0 15px rgba(0, 191, 255, 0.9));
-  }
-}
-
-/* ===== АДАПТИВ ===== */
-@media (max-width: 768px) {
-  .chat-header {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .chat-header-left {
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .chat-mascot {
-    align-self: flex-end;
-  }
-
-  .robot-animation-wrapper {
-    width: 44px;
-    height: 44px;
-  }
-}
-/* ============================================================
-   ДЛЯ БОЛЬШИХ ЭКРАНОВ (ОПЦИОНАЛЬНО)
+   БОЛЬШИЕ ЭКРАНЫ (ОПЦИОНАЛЬНО)
    ============================================================ */
 @media (min-width: 1400px) {
   .container {
