@@ -174,6 +174,27 @@ function handleHamburger() {
 }
 
 // ============================================================
+//   ЧАТ: ПРОКРУТКА ВНИЗ (ГАРАНТИРОВАННАЯ)
+// ============================================================
+function scrollToBottom() {
+  const container = document.querySelector('.messages');
+  if (!container) return;
+  
+  // Мгновенная прокрутка
+  container.scrollTop = container.scrollHeight;
+  
+  // Двойная страховка через requestAnimationFrame
+  requestAnimationFrame(() => {
+    container.scrollTop = container.scrollHeight;
+  });
+  
+  // Тройная страховка через 50мс
+  setTimeout(() => {
+    container.scrollTop = container.scrollHeight;
+  }, 50);
+}
+
+// ============================================================
 //   ЧАТ: ЭФФЕКТ ПЕЧАТИ С АВТОПРОКРУТКОЙ
 // ============================================================
 function typeMessageWithScroll(element, text, speed = 25) {
@@ -192,27 +213,6 @@ function typeMessageWithScroll(element, text, speed = 25) {
       scrollToBottom();
     }
   }, speed);
-}
-
-// ============================================================
-//   ЧАТ: ПРОКРУТКА ВНИЗ (ГАРАНТИРОВАННАЯ)
-// ============================================================
-function scrollToBottom() {
-  const container = document.querySelector('.messages');
-  if (!container) return;
-  
-  // Немедленная прокрутка
-  container.scrollTop = container.scrollHeight;
-  
-  // Дополнительная прокрутка после перерисовки DOM
-  requestAnimationFrame(() => {
-    container.scrollTop = container.scrollHeight;
-  });
-  
-  // Ещё одна прокрутка через 50мс для надёжности
-  setTimeout(() => {
-    container.scrollTop = container.scrollHeight;
-  }, 50);
 }
 
 // ============================================================
@@ -237,12 +237,12 @@ if (chatMessages && chatForm && chatInput) {
     const value = chatInput.value.trim();
     if (!value) return;
 
-    // Сообщение пользователя
+    // ===== СООБЩЕНИЕ ПОЛЬЗОВАТЕЛЯ — МГНОВЕННО =====
     const userMessage = document.createElement('div');
     userMessage.className = 'message user';
     userMessage.textContent = value;
     chatMessages.appendChild(userMessage);
-    scrollToBottom();
+    scrollToBottom(); // Сразу прокручиваем
 
     const lower = value.toLowerCase();
     let answer = 'Я вижу, что вы хотите быстрое решение. Для старта рекомендую книгу «Краткая история времени» как ввод в системное мышление и ролик по управлению временем на YouTube: «Как не сгореть в бизнесе».';
@@ -259,13 +259,15 @@ if (chatMessages && chatForm && chatInput) {
       answer = 'Откройте блок «Эффективность искусственного интеллекта». Рекомендую книгу «Искусственный интеллект для предпринимателя» и видео «Автоматизация рутины с ИИ».';
     }
 
-    // Ответ бота с эффектом печати и автопрокруткой
+    // ===== СООБЩЕНИЕ ИИ — С ЭФФЕКТОМ ПЕЧАТИ И ПРОКРУТКОЙ =====
     const botMessage = document.createElement('div');
     botMessage.className = 'message';
     chatMessages.appendChild(botMessage);
     typeMessageWithScroll(botMessage, answer, 15);
 
     chatInput.value = '';
+    // Дополнительная прокрутка после очистки поля
+    setTimeout(scrollToBottom, 10);
   });
 }
 
@@ -448,6 +450,7 @@ if (assistantMessages && assistantForm && assistantInput) {
     userMessage.className = 'message user';
     userMessage.textContent = value;
     assistantMessages.appendChild(userMessage);
+    scrollToBottom();
 
     const lower = value.toLowerCase();
     let answer = 'Рекомендую начать с книги «Сделано в Америке» и видео «Как продавать без давления». Вернитесь позже и сохраните заметку о том, что вы решили попробовать.';
@@ -466,7 +469,7 @@ if (assistantMessages && assistantForm && assistantInput) {
     typeMessageWithScroll(botMessage, answer, 15);
 
     assistantInput.value = '';
-    assistantMessages.scrollTop = assistantMessages.scrollHeight;
+    setTimeout(scrollToBottom, 10);
   });
 }
 
