@@ -1215,7 +1215,118 @@ header.scrolled {
     max-height: 180px;
   }
 }
+/* ============================================================
+   МАСКОТ
+   ============================================================ */
+.mascot-section {
+  margin: 40px 0 20px;
+  padding: 40px 0;
+  border-top: 1px solid var(--border-subtle);
+}
 
+.mascot-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.mascot-text {
+  max-width: 400px;
+}
+
+.mascot-text h3 {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+}
+
+.mascot-text p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+/* ===== АНИМАЦИЯ МАСКОТА ===== */
+.robot-animation-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: auto;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.robot-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  animation: swingWings 4s infinite ease-in-out;
+  transform-origin: center center;
+}
+
+.robot-mask-face {
+  position: absolute;
+  top: 33.5%;
+  left: 40.5%;
+  width: 19%;
+  height: 14%;
+  background: rgba(0, 191, 255, 0.1);
+  border-radius: 5px;
+  pointer-events: none;
+  animation: pulseSmile 2.5s infinite ease-in-out;
+}
+
+.robot-animation-wrapper:hover .robot-image {
+  transform: scale(1.05);
+}
+
+.robot-animation-wrapper:hover .robot-image {
+  animation-duration: 2s;
+}
+
+.robot-animation-wrapper:hover .robot-mask-face {
+  animation-duration: 1.2s;
+}
+
+/* Анимация покачивания */
+@keyframes swingWings {
+  0%, 100% {
+    transform: scale(1) rotate(-1.5deg) skewY(-1.5deg);
+  }
+  50% {
+    transform: scale(1.03) rotate(1.5deg) skewY(1.5deg);
+  }
+}
+
+/* Анимация пульсации улыбки */
+@keyframes pulseSmile {
+  0%, 100% {
+    filter: brightness(1) contrast(1) drop-shadow(0 0 5px rgba(0, 191, 255, 0.4));
+  }
+  50% {
+    filter: brightness(1.4) contrast(1.5) drop-shadow(0 0 15px rgba(0, 191, 255, 0.9));
+  }
+}
+
+/* ===== АДАПТИВ ДЛЯ МАСКОТА ===== */
+@media (max-width: 768px) {
+  .mascot-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+  }
+
+  .robot-animation-wrapper {
+    width: 160px;
+  }
+
+  .mascot-text h3 {
+    font-size: 1.3rem;
+  }
+}
 /* ============================================================
    ДЛЯ БОЛЬШИХ ЭКРАНОВ (ОПЦИОНАЛЬНО)
    ============================================================ */
