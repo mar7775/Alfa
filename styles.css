@@ -788,7 +788,7 @@ header.scrolled {
 }
 
 /* ============================================================
-   МАСКОТ (АНИМАЦИЯ) — 200px
+   МАСКОТ (АНИМАЦИЯ) — 200px НА ДЕСКТОПЕ
    ============================================================ */
 .robot-animation-wrapper {
   position: relative;
@@ -1152,7 +1152,7 @@ header.scrolled {
 }
 
 /* ============================================================
-   ADAPTIVE — МОБИЛЬНЫЕ
+   ADAPTIVE — МОБИЛЬНЫЕ (МАСКОТ СЛЕВА, КРУПНЕЕ)
    ============================================================ */
 @media (max-width: 768px) {
   .container {
@@ -1244,14 +1244,17 @@ header.scrolled {
     font-size: 1.1rem;
   }
 
-  /* ===== МАСКОТ НА МОБИЛЬНЫХ — ОРГАНИЧНО ===== */
+  /* ===== МАСКОТ СЛЕВА, УВЕЛИЧЕННЫЙ, ОРГАНИЧНО ===== */
   .chat-header-left {
-    gap: 12px;
+    gap: 14px;
     width: 100%;
+    flex-wrap: nowrap;
+    align-items: center;
   }
 
   .chat-header-info h3 {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.2;
   }
 
   .chat-mascot {
@@ -1260,8 +1263,8 @@ header.scrolled {
   }
 
   .robot-animation-wrapper {
-    width: 56px;
-    height: 56px;
+    width: 70px;
+    height: 70px;
   }
 
   .robot-image {
@@ -1270,7 +1273,8 @@ header.scrolled {
 
   /* ===== ЧАТ НА МОБИЛЬНЫХ ===== */
   .chat-card .messages {
-    max-height: 150px;
+    max-height: 200px;
+    min-height: 100px;
   }
 
   .message {
